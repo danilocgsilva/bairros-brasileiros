@@ -1,0 +1,12 @@
+services:
+  bairros_brasileiros_banco_de_dados:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 'bairros_brasileiros'
+    volumes:
+      - my-datavolume:/var/lib/mysql
+    ports:
+      - "969:3306"
+volumes:
+  my-datavolume:
+
