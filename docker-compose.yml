@@ -15,7 +15,7 @@ services:
     volumes:
       - ./app:/app
     container_name: bairros_brasileiros_aplicacao
-    workin_dir: /app
+    working_dir: /app
 volumes:
   my-datavolume:
 
