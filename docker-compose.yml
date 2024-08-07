@@ -7,12 +7,15 @@ services:
       - my-datavolume:/var/lib/mysql
     ports:
       - "969:3306"
+    container_name: bairros_brasileiros_banco_de_dados
   bairros_brasileiros_python:
     build:
       context: .
       dockerfile: ReceitaPython
     volumes:
       - ./app:/app
+    container_name: bairros_brasileiros_aplicacao
+    workin_dir: /app
 volumes:
   my-datavolume:
 
