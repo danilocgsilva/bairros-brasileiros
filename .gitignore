@@ -1,2 +1,3 @@
 app/comandos/__pycache__/
 app/utils/__pycache__/
+cli/vendor/

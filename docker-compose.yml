@@ -16,6 +16,13 @@ services:
       - ./app:/app
     container_name: bairros_brasileiros_aplicacao
     working_dir: /app
+  bairros_brasileiros_cli:
+    build:
+      context: .
+      dockerfile: CliDockerfile
+    volumes:
+      - ./cli:/cli
+    working_dir: /cli
 volumes:
   my-datavolume:
 
