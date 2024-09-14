@@ -14,8 +14,16 @@ services:
       dockerfile: ReceitaPython
     volumes:
       - ./app:/app
+      - ./migrations:/app/migrations
+    ports:
+      - "5000:5000"
     container_name: bairros_brasileiros_aplicacao
     working_dir: /app
+    environment:
+      BAIRROS_BRASILEIROS_DB_HOST: 'bairros_brasileiros_banco_de_dados'
+      BAIRROS_BRASILEIROS_DB_NOME: 'bairros_brasileiros'
+      BAIRROS_BRASILEIROS_DB_USUARIO: 'root'
+      BAIRROS_BRASILEIROS_DB_SENHA: 'bairros_brasileiros'
   bairros_brasileiros_cli:
     build:
       context: .
