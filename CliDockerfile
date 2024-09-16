@@ -2,7 +2,7 @@ FROM debian:latest
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install curl git zip -y
+RUN apt-get install curl git zip vim -y
 RUN apt-get install php php-mysql php-xdebug php-curl php-zip php-xml php-mbstring bash-completion -y
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 COPY debugconfig/xdebug.ini /etc/php/8.2/mods-available/
