@@ -1,21 +1,16 @@
 from flask import Flask
-import os
+from MigracaoDB import MigracaoDB
 import mysql.connector
 
 app = Flask(__name__)
 
 @app.route("/")
-def hello():
-    path = os.path.join('migrations', 'migration.sql')
-    file = open(path, "r")
-    query = file.read()
-    
-    mydb = mysql.connector.connect(
-        host="127.0.0.1",
-        user="root",
-        password="tiger",
-        database="<database_name>"
-    )
-
-    
-    return query
+def migrar():
+    try:
+        MigracaoDB().migrar()
+        return "Banco de dados migrado."
+    except mysql.connector.errors.DatabaseError as e:
+        if e.errno == 1007:
+            return "O banco de dados já tinha sido migrado. Nada foi feito."
+        else:
+            raise e

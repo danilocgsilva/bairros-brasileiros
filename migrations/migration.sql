@@ -1,5 +1,7 @@
 CREATE DATABASE bairros_brasileiros;
 
+USE bairros_brasileiros;
+
 CREATE TABLE locais (
     `id` INT UNSIGNED NOT NULL PRIMARY KEY,
     `local` VARCHAR(255),
