@@ -9,29 +9,28 @@ use Symfony\Component\Console\Command\ListCommand;
 use Symfony\Component\Console\Command\HelpCommand;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
+use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\CustomApplication;
 
 $translator = new Translator('pt_BR');
 $translator->addLoader('yaml', new YamlFileLoader());
 $translator->addResource('yaml', __DIR__.'/translations/commands.pt_BR.yml', 'pt_BR');
 
-$listCommand = new ListCommand();
-$listCommand
-    ->setName($translator->trans('Symfony\Component\Console\Command\ListCommand.name'))
-    ->setDescription($translator->trans('Symfony\Component\Console\Command\ListCommand.description'))
-    ->setHelp($translator->trans('Symfony\Component\Console\Command\ListCommand.help'))
-;
+// $application = new Application();
+$application = new CustomApplication($translator);
 
+$nomeComandoHelpTraduzido = $translator->trans('Symfony\Component\Console\Command\HelpCommand.name');
+$textoDescricaoTraduzido = $translator->trans('Symfony\Component\Console\Command\HelpCommand.description');
+$textoAjudaComandoAjudaTraduzido = $translator->trans('Symfony\Component\Console\Command\HelpCommand.help');
 
 $helpCommand = new HelpCommand();
-$helpCommand->setName($translator->trans('Symfony\Component\Console\Command\HelpCommand.name'))
-    ->setDescription($translator->trans('Symfony\Component\Console\Command\HelpCommand.description'))
-    ->setHelp($translator->trans('Symfony\Component\Console\Command\HelpCommand.help'))
+$helpCommand
+    ->setName($nomeComandoHelpTraduzido)
+    ->setDescription($textoDescricaoTraduzido)
+    ->setHelp($textoAjudaComandoAjudaTraduzido)
 ;
 
-$application = new Application();
 $application->add(new MigrarCommand());
-$application->setDefaultCommand('lista');
-$application->add($listCommand);
+// $application->setDefaultCommand('lista');
 $application->add($helpCommand);
 
 $application->run();
