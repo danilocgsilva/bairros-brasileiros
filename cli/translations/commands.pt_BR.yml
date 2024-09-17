@@ -1,0 +1,9 @@
+Symfony\Component\Console\Command\ListCommand:
+  name: 'lista'
+  description: 'Lista todos os comandos disponíveis'
+  help: 'Este comando permite listar todos os comandos...'
+
+Symfony\Component\Console\Command\HelpCommand:
+  name: 'ajuda'
+  description: 'Mostra a ajuda de um comando'
+  help: 'Este comando permite visualizar a ajuda para um comando específico...'

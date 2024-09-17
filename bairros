@@ -1,3 +1,5 @@
 #!/bin/bash
 
-docker exec -it b9d431e100cd php -dxdebug.start_with_request=0 bairros $@
+container_id=$(docker ps | grep -i bairros_brasileiros_cli | awk '{print $1}')
+
+docker exec -it $container_id php -dxdebug.start_with_request=0 bairros $@
