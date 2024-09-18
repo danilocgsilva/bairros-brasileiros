@@ -6,6 +6,8 @@ use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Symfony\Component\Console\Command\CompleteCommand;
 
 class TradutorDeComandos extends Translator
 {
@@ -18,6 +20,9 @@ class TradutorDeComandos extends Translator
         array $cacheVary = [],
     ) {
         parent::__construct($locale, $formatter, $cacheDir, $debug, $cacheVary);
+
+        $this->addLoader('yaml', new YamlFileLoader());
+        $this->addResource('yaml', __DIR__.'/../translations/commands.pt_BR.yml', 'pt_BR');
     }
 
     public function traduzirComando(
@@ -56,6 +61,16 @@ class TradutorDeComandos extends Translator
             'Symfony\Component\Console\Command\HelpCommand.name',
             'Symfony\Component\Console\Command\HelpCommand.description',
             'Symfony\Component\Console\Command\HelpCommand.help'
+        );
+    }
+
+    public function traduzirCompletion(): void
+    {
+        $this->traduzirComando(
+            $this->application->find('completion'),
+            'Symfony\Component\Console\Command\CompleteCommand.name',
+            'Symfony\Component\Console\Command\CompleteCommand.description',
+            'Symfony\Component\Console\Command\CompleteCommand.help'
         );
     }
 }

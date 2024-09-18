@@ -7,3 +7,7 @@ Symfony\Component\Console\Command\HelpCommand:
   name: 'ajuda'
   description: 'Mostra a ajuda de um comando'
   help: 'Este comando permite visualizar a ajuda para um comando específico...'
+Symfony\Component\Console\Command\CompleteCommand:
+  name: 'completacao'
+  description: 'Exporta o código necessário para autocompletar'
+  help: 'Exporta o código necessário para autocompletar'

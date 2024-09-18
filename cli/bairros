@@ -5,17 +5,15 @@ require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\MigrarCommand;
-use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\TradutorDeComandos;
 
 $application = new Application();
 
 $translator = new TradutorDeComandos('pt_BR', $application);
-$translator->addLoader('yaml', new YamlFileLoader());
-$translator->addResource('yaml', __DIR__.'/translations/commands.pt_BR.yml', 'pt_BR');
 
 $translator->traduzirList();
 $translator->traduzirHelp();
+$translator->traduzirCompletion();
 
 $application->add(new MigrarCommand());
 
