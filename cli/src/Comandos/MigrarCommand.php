@@ -1,6 +1,6 @@
 <?php
 
-namespace Danilocgsilva\BairrosBrasileirosLinhaDeComandos;
+namespace Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos;
 
 use Symfony\Component\Console\Attribute\AsCommand;  
 use Symfony\Component\Console\Command\Command;

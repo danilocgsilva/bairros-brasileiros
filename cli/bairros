@@ -3,11 +3,11 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
-use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\MigrarCommand;
+use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\MigrarCommand;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\TradutorDeComandos;
+use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Aplicacao;
 
-$application = new Application();
+$application = new Aplicacao();
 
 $translator = new TradutorDeComandos('pt_BR', $application);
 
@@ -16,5 +16,8 @@ $translator->traduzirHelp();
 $translator->traduzirCompletion();
 
 $application->add(new MigrarCommand());
+
+$definitions = $application->getDefinition();
+
 
 $application->run();
