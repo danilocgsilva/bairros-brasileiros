@@ -4,6 +4,7 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\MigrarCommand;
+use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\AjudaBanco;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\TradutorDeComandos;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Aplicacao;
 
@@ -16,8 +17,8 @@ $translator->traduzirHelp();
 $translator->traduzirCompletion();
 
 $application->add(new MigrarCommand());
+$application->add(new AjudaBanco());
 
 $definitions = $application->getDefinition();
-
 
 $application->run();

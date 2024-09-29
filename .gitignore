@@ -1,4 +1,4 @@
 app/__pycache__/
-app/comandos/__pycache__/
 app/utils/__pycache__/
 cli/vendor/
+app/src/__pycache__/

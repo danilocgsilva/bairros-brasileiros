@@ -1,3 +1,3 @@
 #!/bin/bash
 
-flask run --host=0.0.0.0
+while : ; do sleep 1000; done
