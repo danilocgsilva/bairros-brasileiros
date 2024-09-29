@@ -5,5 +5,7 @@ RUN apt-get upgrade -y
 RUN apt-get install python3-pip -y
 RUN pip install Flask --break-system-packages
 RUN pip install mysql-connector-python --break-system-packages
+COPY pythonconfig/inicia.sh /inicia.sh
+RUN chmod +x /inicia.sh
 
-CMD while : ; do sleep 1000; done
+CMD /inicia.sh
