@@ -3,7 +3,7 @@ CREATE DATABASE bairros_brasileiros;
 USE bairros_brasileiros;
 
 CREATE TABLE locais (
-    `id` INT UNSIGNED NOT NULL PRIMARY KEY,
+    `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `local` VARCHAR(255),
     `parentalidade` INT UNSIGNED UNIQUE,
     `tipo_localidade` INT UNSIGNED UNIQUE
@@ -12,7 +12,7 @@ CREATE TABLE locais (
 ALTER TABLE locais ADD CONSTRAINT `parentalidade_id_constraint` FOREIGN KEY (`parentalidade`) REFERENCES locais (`id`);
 
 CREATE TABLE tipos_locais (
-    `id` INT UNSIGNED NOT NULL PRIMARY KEY,
+    `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `tipo` VARCHAR(32)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
