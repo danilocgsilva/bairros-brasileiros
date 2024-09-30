@@ -10,6 +10,7 @@ class MigracaoDB:
             user = variaveisConexaoBanco.buscarUsuarioBanco(),
             password = variaveisConexaoBanco.buscarSenhaBanco()
         )
+        self.dbcursor = self.mydb.cursor()
     
     def migrar_estrutura(self):
         dbcursor = self.mydb.cursor()
@@ -17,15 +18,12 @@ class MigracaoDB:
     
     def escrever_tipos_localidades(self):
         query_use = "USE bairros_brasileiros"
-        query_insert_tipo_bairro = "INSERT INTO tipos_locais (tipo) VALUES ('bairro');"
-        query_insert_tipo_cidade = "INSERT INTO tipos_locais (tipo) VALUES ('cidade');"
-        query_insert_tipo_estado = "INSERT INTO tipos_locais (tipo) VALUES ('estado');"
-        dbcursor = self.mydb.cursor()
+        self.dbcursor.execute(query_use)
         
-        dbcursor.execute(query_use)
-        dbcursor.execute(query_insert_tipo_bairro)
-        dbcursor.execute(query_insert_tipo_cidade)
-        dbcursor.execute(query_insert_tipo_estado)
+        self._insert_tipo_local('bairro')
+        self._insert_tipo_local('cidade')
+        self._insert_tipo_local('estado')
+
         self.mydb.commit()
     
     def _buscarQueryMigration(self):
@@ -33,3 +31,8 @@ class MigracaoDB:
         file = open(path, "r")
         query = file.read()
         return query
+    
+    def _insert_tipo_local(self, tipo: str):
+        query_insert_tipo_estado = "INSERT INTO tipos_locais (tipo) VALUES ('{0}');"
+        self.dbcursor.execute(query_insert_tipo_estado.format(tipo))
+        
