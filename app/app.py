@@ -16,17 +16,19 @@ def migrar():
     mensagens = ""
     
     try:
+        # MigracaoDB().migrar_estrutura()
         migrador.migrar_estrutura()
         mensagens += "Banco de dados migrado."
     except mysql.connector.errors.DatabaseError as e:
         if e.errno == 1007:
-            mensagens += "O banco de dados já tinha sido migrado. Nada foi feito."
+            mensagens += "A estrutura do banco de dados já tinha sido migrado. Nada foi feito."
         else:
             raise e
         
     try:
-        migrador.escrever_tipos_localidades()
-        mensagens += "\nInserido os tipos de locais."
+        # mensagens_migracao = MigracaoDB().escrever_tipos_localidades()
+        mensagens_migracao = migrador.escrever_tipos_localidades()
+        mensagens += "\n" + mensagens_migracao
     except Exception as e:
         raise e
         
