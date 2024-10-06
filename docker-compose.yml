@@ -31,6 +31,11 @@ services:
     volumes:
       - ./cli:/cli
     working_dir: /cli
+    environment:
+      BAIRROS_BRASILEIROS_DB_HOST: 'bairros_brasileiros_banco_de_dados'
+      BAIRROS_BRASILEIROS_DB_NOME: 'bairros_brasileiros'
+      BAIRROS_BRASILEIROS_DB_USUARIO: 'root'
+      BAIRROS_BRASILEIROS_DB_SENHA: 'bairros_brasileiros'
 volumes:
   my-datavolume:
 

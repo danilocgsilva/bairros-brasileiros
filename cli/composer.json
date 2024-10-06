@@ -16,6 +16,7 @@
         "symfony/console": "^7.1",
         "guzzlehttp/guzzle": "^7.9",
         "symfony/translation": "^7.1",
-        "symfony/yaml": "^7.1"
+        "symfony/yaml": "^7.1",
+        "doctrine/migrations": "^3.8"
     }
 }
