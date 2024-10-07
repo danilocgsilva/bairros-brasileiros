@@ -5,6 +5,7 @@ namespace Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\MigrationInput;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use GuzzleHttp\Client;
@@ -28,9 +29,14 @@ class MigrarCommand extends Command
 {
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // $customInput = new MigrationInput($input->getArguments());
+        // $customInput = new MigrationInput(
+        //     ['zero' => null, 'version' => 'latest'], 
+        //     new InputDefinition([new InputArgument('arg1')])
+        // );
+        $customInput = new MigrationInput();
+
         // $customInput->setArgument('version', 'latest');
-        $input->setArgument('version', 'latest');
+        // $input->setArgument('version', 'latest');
 
         // $guzzleClient = new Client();
         // $resposta = $guzzleClient->get("http://bairros_brasileiros_python:5000/banco/migrar");
@@ -38,7 +44,7 @@ class MigrarCommand extends Command
         // $output->writeln($resposta->getBody()->getContents());
         // return Command::SUCCESS;
 
-        $input->setInteractive(false);
+        $customInput->setInteractive(false);
         // $input->setArgument('--version', 'Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Version20241006202116');
         // $input->setOption('--version', 'Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Version20241006202116');
         // $input->setArgument('version', 'latest');
@@ -77,8 +83,6 @@ class MigrarCommand extends Command
 
         // Create and run the migrate command
         $migrateCommand = new MigrateCommand($dependencyFactory);
-        return $migrateCommand->run($input, $output);
+        return $migrateCommand->run($customInput, $output);
     }
-
-
 }
