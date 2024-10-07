@@ -25,17 +25,14 @@ class MigrarCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $customInput = new MigrationInput();
-        $customInput->setInteractive(false);
-
-        $connection = $this->buscarCredenciaisDeConexao();
-        $configuration = $this->buscarConfiguracoesDeConexao();
-        $storageConfiguration = $this->buscarConfiguracoesStorage();
-
-        $configuration->setMetadataStorageConfiguration($storageConfiguration);
 
         $dependencyFactory = DependencyFactory::fromConnection(
-            new ExistingConfiguration($configuration),
-            new ExistingConnection($connection)
+            new ExistingConfiguration(
+                $this->buscarConfiguracoesDeConexao()
+            ),
+            new ExistingConnection(
+                $this->buscarCredenciaisDeConexao()
+            )
         );
 
         $migrateCommand = new MigrateCommand($dependencyFactory);
@@ -51,17 +48,21 @@ class MigrarCommand extends Command
         $configuration->setMigrationOrganization('none');
         $configuration->setTransactional(true);
 
+        $configuration->setMetadataStorageConfiguration(
+            $this->buscarConfiguracoesStorage()
+        );
+
         return $configuration;
     }
 
     private function buscarCredenciaisDeConexao(): Connection
     {
         $connection = DriverManager::getConnection([
-            'dbname' => 'bairros_brasileiros',
-            'user' => 'root',
-            'password' => 'bairros_brasileiros',
-            'host' => 'bairros_brasileiros_banco_de_dados',
-            'driver' => 'pdo_mysql', // or your preferred driver
+            'dbname' => getenv('BAIRROS_BRASILEIROS_DB_NOME'),
+            'user' => getenv('BAIRROS_BRASILEIROS_DB_USUARIO'),
+            'password' => getenv('BAIRROS_BRASILEIROS_DB_SENHA'),
+            'host' => getenv('BAIRROS_BRASILEIROS_DB_HOST'),
+            'driver' => 'pdo_mysql'
         ]);
 
         return $connection;
