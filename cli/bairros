@@ -3,6 +3,7 @@
 
 require __DIR__.'/vendor/autoload.php';
 
+use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\AdicionarCidade;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\MigrarCommand;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\AjudaBanco;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\TradutorDeComandos;
@@ -18,6 +19,7 @@ $translator->traduzirCompletion();
 
 $application->add(new MigrarCommand());
 $application->add(new AjudaBanco());
+$application->add(new AdicionarCidade());
 
 $definitions = $application->getDefinition();
 

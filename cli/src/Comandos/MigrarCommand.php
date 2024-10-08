@@ -15,6 +15,8 @@ use Doctrine\Migrations\Metadata\Storage\TableMetadataStorageConfiguration;
 use Doctrine\Migrations\Configuration\Connection\ExistingConnection;
 use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
 use Doctrine\DBAL\Connection;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 #[AsCommand(
     name: 'banco:migrar',
@@ -22,6 +24,16 @@ use Doctrine\DBAL\Connection;
 )]
 class MigrarCommand extends Command
 {
+    protected function configure(): void
+    {
+        $this->addOption(
+            'nome-da-cidade',
+            'n',
+            InputOption::VALUE_REQUIRED,
+            'Nome da cidade'
+        );
+    }
+    
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $customInput = new MigrationInput();
