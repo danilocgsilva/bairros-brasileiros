@@ -12,10 +12,16 @@ def default():
 @app.route("/banco/ajuda")
 def banco_ajuda():
     ajuda = Ajuda()
-        
     return minha_resposta(ajuda.db())
 
+"""
+{
+    "nome": "Diadema"
+}
+"""
 @app.route("/adicionar/cidade")
 def adicionar_cidade():
-    Dados().adicionar_cidade()
-    return minha_resposta("Guarulhos adicionada.")
+    dados_json = request.json
+    nome_da_cidade = dados_json["nome"]
+    Dados().adicionar_cidade(nome_da_cidade)
+    return minha_resposta("{} adicionada.".format(nome_da_cidade))
