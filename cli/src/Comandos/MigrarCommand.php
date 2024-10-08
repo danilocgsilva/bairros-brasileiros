@@ -28,7 +28,7 @@ class MigrarCommand extends Command
     {
         $this->addOption(
             'nome-da-cidade',
-            'n',
+            'nc',
             InputOption::VALUE_REQUIRED,
             'Nome da cidade'
         );
@@ -82,7 +82,6 @@ class MigrarCommand extends Command
 
     private function buscarConfiguracoesStorage(): TableMetadataStorageConfiguration
     {
-        // Set up table storage configuration
         $storageConfiguration = new TableMetadataStorageConfiguration();
         $storageConfiguration->setTableName('migration_versions');
         $storageConfiguration->setVersionColumnLength(191);

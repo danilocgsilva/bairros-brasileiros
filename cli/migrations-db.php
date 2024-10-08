@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'dbname' => 'bairros_brasileiros',
-    'user' => 'root',
-    'password' => 'bairros_brasileiros',
-    'host' => 'bairros_brasileiros_banco_de_dados',
+    'dbname' => getenv('BAIRROS_BRASILEIROS_DB_NOME'),
+    'user' => getenv('BAIRROS_BRASILEIROS_DB_USUARIO'),
+    'password' => getenv('BAIRROS_BRASILEIROS_DB_SENHA'),
+    'host' => getenv('BAIRROS_BRASILEIROS_DB_HOST'),
     'driver' => 'pdo_mysql',
 ];

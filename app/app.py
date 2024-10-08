@@ -5,6 +5,14 @@ from src.minha_resposta import minha_resposta
 
 app = Flask(__name__)
 
+def buscar_nome_estado_e_cidade():
+    dados_json = request.json
+    return dados_json["nome"], dados_json["estado"]
+
+def buscar_nome_cidade_e_bairro():
+    dados_json = request.json
+    return dados_json["cidade"], dados_json["nome"]
+
 @app.route("/")
 def default():
     return "Bairros brasileiros"
@@ -16,12 +24,28 @@ def banco_ajuda():
 
 """
 {
-    "nome": "Diadema"
+    "nome": "Guarulhos",
+    "estado": "São Paulo"
 }
 """
 @app.route("/adicionar/cidade")
 def adicionar_cidade():
-    dados_json = request.json
-    nome_da_cidade = dados_json["nome"]
-    Dados().adicionar_cidade(nome_da_cidade)
+    nome_da_cidade, nome_estado = buscar_nome_estado_e_cidade()
+    
+    Dados().adicionar_cidade(nome_da_cidade, nome_estado)
     return minha_resposta("{} adicionada.".format(nome_da_cidade))
+
+"""
+{
+    "nome": "Macedo",
+    "cidade": "Guarulhos"
+}
+"""
+@app.route("/adicionar/bairro")
+def adicionar_bairro():
+    nome_da_cidade, nome_bairro = buscar_nome_cidade_e_bairro()
+    
+    Dados().adicionar_bairro(nome_bairro, nome_da_cidade)
+    return minha_resposta("Bairro {} adicionado.".format(nome_bairro))
+
+
