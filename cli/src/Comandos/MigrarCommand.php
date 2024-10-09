@@ -23,17 +23,7 @@ use Symfony\Component\Console\Input\InputOption;
     description: 'Faz a migração do banco de dados.',
 )]
 class MigrarCommand extends Command
-{
-    protected function configure(): void
-    {
-        $this->addOption(
-            'nome-da-cidade',
-            'nc',
-            InputOption::VALUE_REQUIRED,
-            'Nome da cidade'
-        );
-    }
-    
+{ 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $customInput = new MigrationInput();
