@@ -32,8 +32,11 @@ def banco_ajuda():
 def adicionar_cidade():
     nome_da_cidade, nome_estado = buscar_nome_estado_e_cidade()
     
-    Dados().adicionar_cidade(nome_da_cidade, nome_estado)
-    return minha_resposta("{} adicionada.".format(nome_da_cidade))
+    try:
+        Dados().adicionar_cidade(nome_da_cidade, nome_estado)
+        return minha_resposta("{} adicionada.".format(nome_da_cidade), 200)
+    except Exception as e:
+        return minha_resposta(str(e), 400)
 
 """
 {

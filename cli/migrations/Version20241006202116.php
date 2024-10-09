@@ -22,7 +22,7 @@ final class Version20241006202116 extends AbstractMigration
         $this->addSql('CREATE TABLE locais (
             `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
             `local` VARCHAR(255),
-            `parentalidade` INT UNSIGNED UNIQUE,
+            `parentalidade` INT UNSIGNED,
             `tipo_localidade` INT UNSIGNED
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;');
         $this->addSql('ALTER TABLE locais ADD CONSTRAINT `parentalidade_id_constraint` FOREIGN KEY (`parentalidade`) REFERENCES locais (`id`);');
