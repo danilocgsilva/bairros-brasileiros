@@ -28,7 +28,7 @@ def banco_ajuda():
     "estado": "São Paulo"
 }
 """
-@app.route("/adicionar/cidade")
+@app.route("/adicionar/cidade", methods=['POST'])
 def adicionar_cidade():
     nome_da_cidade, nome_estado = buscar_nome_estado_e_cidade()
     
