@@ -1,11 +1,13 @@
-# from flask import request
-import requests
 from bs4 import BeautifulSoup
+import requests
 import re
 
-class CrawlerCidadesAmapa:
+class Crawler:
+    def __init__(self, endereco: str):
+        self.endereco = endereco
+    
     def buscarConteudo(self):
-        response = requests.get("https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Amap%C3%A1_por_popula%C3%A7%C3%A3o")
+        response = requests.get(self.endereco)
         htmlcru = response.content
         conteudo_parseado = BeautifulSoup(htmlcru, "html.parser")
         linhas_tabela_cidades_amapa = conteudo_parseado.select("table.wikitable.sortable tbody tr")
@@ -20,7 +22,7 @@ class CrawlerCidadesAmapa:
                 continue
             lista_cidades.append(dado_cidade)
             print(dado_cidade)
-            
+
     def _eHeader(self, elemento_buscado) -> bool:
         celulas_header = elemento_buscado.select("th")
         if len(celulas_header) > 0:
@@ -33,6 +35,3 @@ class CrawlerCidadesAmapa:
         if re.search(r"<", dado):
             return False
         return True
-            
-crawler = CrawlerCidadesAmapa()
-crawler.buscarConteudo()

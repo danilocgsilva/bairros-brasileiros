@@ -3,3 +3,4 @@ app/utils/__pycache__/
 cli/vendor/
 app/src/__pycache__/
 app/entidades/__pycache__/
+app/crawler/__pycache__/
