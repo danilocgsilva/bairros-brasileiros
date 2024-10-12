@@ -11,7 +11,7 @@ class Crawler:
         self.seletor_coluna = None
     
     def buscarConteudo(self):
-        erros_preparacao = self._verificar_erros_validacao
+        erros_preparacao = self._verificar_erros_validacao()
         if len(erros_preparacao) > 0:
             raise Exception('Houveram impedimentos para o processamento: ' + ', '.join(erros_preparacao))
             
