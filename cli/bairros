@@ -8,6 +8,7 @@ use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\MigrarCommand;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\AjudaBanco;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\TradutorDeComandos;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Aplicacao;
+use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\ListarTodosLocais;
 
 $application = new Aplicacao();
 
@@ -20,6 +21,7 @@ $translator->traduzirCompletion();
 $application->add(new MigrarCommand());
 $application->add(new AjudaBanco());
 $application->add(new AdicionarCidade());
+$application->add(new ListarTodosLocais());
 
 $definitions = $application->getDefinition();
 

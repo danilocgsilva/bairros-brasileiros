@@ -57,5 +57,5 @@ def ver_todas_informacoes():
     lista_informacoes_string = []
     for dado_informacao in informacoes:
         lista_informacoes_string.append(dado_informacao.nome + ", " + dado_informacao.tipo)
-    return minha_resposta('; '.join(lista_informacoes_string))
+    return lista_informacoes_string 
     
