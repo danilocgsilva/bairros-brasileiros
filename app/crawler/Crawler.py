@@ -11,17 +11,7 @@ class Crawler:
         self.seletor_coluna = None
     
     def buscarConteudo(self):
-        erros_preparacao = []
-        
-        if self.processador == None:
-            erros_preparacao.append("Não é possível processar. Adicione um processador (propriedade processador: ProcessadorInterface).")
-        if self.endereco == None:
-            erros_preparacao.append("Não é possível processar. Adicione endereco web (propriedade endereco).")
-        if self.seletor_tabela == None:
-            erros_preparacao.append("Não é possível processar. Coloque um seletor para a tabela contendo a informação (propriedade: seletor_tabela)")
-        if self.seletor_coluna == None:
-            erros_preparacao.append("Não é possível processar. Coloque um seletor para a coluna da informação (propriedade: seletor_coluna)")
-            
+        erros_preparacao = self._verificar_erros_validacao
         if len(erros_preparacao) > 0:
             raise Exception('Houveram impedimentos para o processamento: ' + ', '.join(erros_preparacao))
             
@@ -38,6 +28,20 @@ class Crawler:
             if not self._validaDado(dado_cidade):
                 continue
             self.processador.processar_sucesso(dado_cidade)
+            
+    def _verificar_erros_validacao(self):
+        erros_preparacao = []
+        
+        if self.processador == None:
+            erros_preparacao.append("Não é possível processar. Adicione um processador (propriedade processador: ProcessadorInterface).")
+        if self.endereco == None:
+            erros_preparacao.append("Não é possível processar. Adicione endereco web (propriedade endereco).")
+        if self.seletor_tabela == None:
+            erros_preparacao.append("Não é possível processar. Coloque um seletor para a tabela contendo a informação (propriedade: seletor_tabela)")
+        if self.seletor_coluna == None:
+            erros_preparacao.append("Não é possível processar. Coloque um seletor para a coluna da informação (propriedade: seletor_coluna)")
+            
+        return erros_preparacao
 
     def _eHeader(self, elemento_buscado) -> bool:
         celulas_header = elemento_buscado.select("th")
