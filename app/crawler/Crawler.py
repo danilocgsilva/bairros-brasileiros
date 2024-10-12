@@ -4,19 +4,21 @@ from crawler.processadores.ProcessadorInterface import ProcessadorInterface
 import re
 
 class Crawler:
-    def __init__(self, endereco: str, processador: ProcessadorInterface):
-        self.processador = processador
-        self.endereco = endereco
+    def __init__(self):
+        self.processador = None,
+        self.endereco = None
+        self.seletor_tabela = None,
+        self.seletor_coluna = None
     
     def buscarConteudo(self):
         response = requests.get(self.endereco)
         htmlcru = response.content
         conteudo_parseado = BeautifulSoup(htmlcru, "html.parser")
-        linhas_tabela_cidades_amapa = conteudo_parseado.select("table.wikitable.sortable tbody tr")
+        linhas_tabela_cidades_amapa = conteudo_parseado.select(self.seletor_tabela)
         for cidade in linhas_tabela_cidades_amapa:
             if self._eHeader(cidade):
                 continue
-            ultimo_elemento_contendo_dado = cidade.select("td:nth-child(2) a")[0]
+            ultimo_elemento_contendo_dado = cidade.select(self.seletor_coluna)[0]
             dado_cidade_obj = ultimo_elemento_contendo_dado.contents[0]
             dado_cidade = str(dado_cidade_obj)
             if not self._validaDado(dado_cidade):
