@@ -2,6 +2,7 @@ from flask import Flask, request
 from src.Dados import Dados
 from src.Ajuda import Ajuda
 from src.minha_resposta import minha_resposta
+from src.DadoLegivel import DadoLegivel
 
 app = Flask(__name__)
 
@@ -47,8 +48,14 @@ def adicionar_cidade():
 @app.route("/adicionar/bairro")
 def adicionar_bairro():
     nome_da_cidade, nome_bairro = buscar_nome_cidade_e_bairro()
-    
     Dados().adicionar_bairro(nome_bairro, nome_da_cidade)
     return minha_resposta("Bairro {} adicionado.".format(nome_bairro))
 
-
+@app.route("/ver_todas_informacoes")
+def ver_todas_informacoes():
+    informacoes = Dados().listar_todos_dados()
+    lista_informacoes_string = []
+    for dado_informacao in informacoes:
+        lista_informacoes_string.append(dado_informacao.nome + ", " + dado_informacao.tipo)
+    return minha_resposta('; '.join(lista_informacoes_string))
+    

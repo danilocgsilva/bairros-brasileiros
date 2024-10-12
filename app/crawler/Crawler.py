@@ -1,9 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
+from crawler.processadores.ProcessadorInterface import ProcessadorInterface
 import re
 
 class Crawler:
-    def __init__(self, endereco: str):
+    def __init__(self, endereco: str, processador: ProcessadorInterface):
+        self.processador = processador
         self.endereco = endereco
     
     def buscarConteudo(self):
@@ -11,7 +13,6 @@ class Crawler:
         htmlcru = response.content
         conteudo_parseado = BeautifulSoup(htmlcru, "html.parser")
         linhas_tabela_cidades_amapa = conteudo_parseado.select("table.wikitable.sortable tbody tr")
-        lista_cidades = []
         for cidade in linhas_tabela_cidades_amapa:
             if self._eHeader(cidade):
                 continue
@@ -20,8 +21,7 @@ class Crawler:
             dado_cidade = str(dado_cidade_obj)
             if not self._validaDado(dado_cidade):
                 continue
-            lista_cidades.append(dado_cidade)
-            print(dado_cidade)
+            self.processador.processar_sucesso(dado_cidade)
 
     def _eHeader(self, elemento_buscado) -> bool:
         celulas_header = elemento_buscado.select("th")

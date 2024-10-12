@@ -4,3 +4,5 @@ cli/vendor/
 app/src/__pycache__/
 app/entidades/__pycache__/
 app/crawler/__pycache__/
+app/banco_dados/__pycache__/
+app/crawler/processadores/__pycache__/
