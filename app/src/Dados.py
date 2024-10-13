@@ -13,7 +13,13 @@ class Dados:
             password=variaveisConexaoBanco.buscarSenhaBanco(),
             database=variaveisConexaoBanco.buscarNomeDoBanco()
         )
-    
+        
+    def adicionar_receita(self, nome_receita: str, seletor_tabela: str, seletor_coluna: str, endereco: str):
+        query = "INSERT INTO receitas (nome, seletor_tabela, seletor_coluna, endereco) VALUES (%s, %s, %s, %s);"
+        local_cursor = self.recursodb.cursor()
+        local_cursor.execute(query, (nome_receita, seletor_tabela, seletor_coluna, endereco))
+        self.recursodb.commit()
+        
     def adicionar_cidade(self, nome_cidade: str, nome_estado: str):
         estados = self._buscar_estados(nome_estado)
         estado = None
@@ -39,7 +45,6 @@ class Dados:
         for dado_cru in meus_resultados:
             dados_legiveis.append(DadoLegivel(dado_cru[0], dado_cru[1]))
         return dados_legiveis
-        
         
     def _cidade_ja_cadastrada(self, nome_cidade: str, estado: Estado) -> bool:
         local_cursor =  self.recursodb.cursor()

@@ -23,7 +23,8 @@ final class Version20241012150945 extends AbstractMigration
             `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
             `nome` VARCHAR(255),
             `seletor_tabela` CHAR(192),
-            `seletor_coluna` CHAR(192)
+            `seletor_coluna` CHAR(192),
+            `endereco` VARCHAR(255)
         );');
     }
 

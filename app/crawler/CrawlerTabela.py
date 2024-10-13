@@ -3,7 +3,7 @@ import requests
 from crawler.processadores.ProcessadorInterface import ProcessadorInterface
 import re
 
-class Crawler:
+class CrawlerTabela:
     def __init__(self):
         self.processador = None,
         self.endereco = None

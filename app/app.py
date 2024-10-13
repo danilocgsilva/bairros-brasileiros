@@ -14,6 +14,10 @@ def buscar_nome_cidade_e_bairro():
     dados_json = request.json
     return dados_json["cidade"], dados_json["nome"]
 
+def buscar_dados_request_nova_receita():
+    dados_json = request.json
+    return dados_json["nome"], dados_json["seletor_tabela"], dados_json["seletor_coluna"], dados_json["endereco"]
+
 @app.route("/")
 def default():
     return "Bairros brasileiros"
@@ -29,7 +33,7 @@ def banco_ajuda():
     "estado": "São Paulo"
 }
 """
-@app.route("/adicionar/cidade", methods=['POST'])
+@app.route("/cidade/adicionar", methods=['POST'])
 def adicionar_cidade():
     nome_da_cidade, nome_estado = buscar_nome_estado_e_cidade()
     
@@ -45,7 +49,7 @@ def adicionar_cidade():
     "cidade": "Guarulhos"
 }
 """
-@app.route("/adicionar/bairro")
+@app.route("/bairro/adicionar", methods=['POST'])
 def adicionar_bairro():
     nome_da_cidade, nome_bairro = buscar_nome_cidade_e_bairro()
     Dados().adicionar_bairro(nome_bairro, nome_da_cidade)
@@ -57,5 +61,19 @@ def ver_todas_informacoes():
     lista_informacoes_string = []
     for dado_informacao in informacoes:
         lista_informacoes_string.append(dado_informacao.nome + ", " + dado_informacao.tipo)
-    return lista_informacoes_string 
+    return lista_informacoes_string
+
+"""
+{
+    "nome": "Cidades de Amapá",
+    "seletor_tabela": "table.wikitable.sortable tbody tr",
+    "seletor_coluna": "td:nth-child(2) a",
+    "endereco": "https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Amap%C3%A1_por_popula%C3%A7%C3%A3o"
+}
+"""
+@app.route("/receita/adicionar",  methods=['POST'])
+def adicionar_receita():
+    nome_receita, seletor_tabela, seletor_coluna, endereco = buscar_dados_request_nova_receita()
+    Dados().adicionar_receita(nome_receita, seletor_tabela, seletor_coluna, endereco)
+    return 'oi'
     
