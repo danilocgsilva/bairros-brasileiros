@@ -3,6 +3,7 @@ import mysql.connector
 from src.TiposLocais import TiposLocais
 from entidades.Estado import Estado
 from src.Repositorios.Locais import Locais
+from src.Repositorios.Receitas import Receitas
 
 class Dados:
     def __init__(self):
@@ -14,14 +15,17 @@ class Dados:
             database=variaveisConexaoBanco.buscarNomeDoBanco()
         )
         
-    def adicionar_receita(self, nome_receita: str, seletor_tabela: str, seletor_coluna: str, endereco: str):
-        query = "INSERT INTO receitas (nome, seletor_tabela, seletor_coluna, endereco) VALUES (%s, %s, %s, %s);"
-        local_cursor = self.recursodb.cursor()
-        local_cursor.execute(query, (nome_receita, seletor_tabela, seletor_coluna, endereco))
-        self.recursodb.commit()
+    def adicionar_receita(
+        self, 
+        nome_receita: str, 
+        seletor_tabela: str, 
+        seletor_coluna: str, 
+        endereco: str
+    ):
+        Receitas().salva(nome_receita, seletor_tabela, seletor_coluna, endereco)
         
     def adicionar_cidade(self, nome_cidade: str, nome_estado: str):
-        estados = self._buscar_estados(nome_estado)
+        estados = Locais().buscar_estados(nome_estado)
         estado = None
         if len(estados) == 0:
             raise Exception("O nome do estado não existe")
@@ -44,15 +48,6 @@ class Dados:
         local_cursor.execute("SELECT id, local FROM locais WHERE local = %s AND parentalidade = %s", (nome_cidade, estado.id, ))
         resultados = local_cursor.fetchall()
         return len(resultados) > 0
-        
-    def _buscar_estados(self, nome_do_estado: str) -> list:
-        estados = []
-        local_cursor = self.recursodb.cursor()
-        local_cursor.execute("SELECT id, local FROM locais WHERE tipo_localidade = %s AND local = %s;", (3, nome_do_estado, ))
-        meus_resultados = local_cursor.fetchall()
-        for estado_resultado in meus_resultados:
-            estados.append(Estado(id=estado_resultado[0], nome=estado_resultado[1]))
-        return estados
         
     def _adicionar_local(self, nome_local: str, parentalidade: int, tipo: TiposLocais):
         local_cursor = self.recursodb.cursor()

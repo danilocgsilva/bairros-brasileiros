@@ -3,20 +3,9 @@ from src.Dados import Dados
 from src.Ajuda import Ajuda
 from src.minha_resposta import minha_resposta
 from src.DadoLegivel import DadoLegivel
+from src.Requests import Requests
 
 app = Flask(__name__)
-
-def buscar_nome_estado_e_cidade():
-    dados_json = request.json
-    return dados_json["nome"], dados_json["estado"]
-
-def buscar_nome_cidade_e_bairro():
-    dados_json = request.json
-    return dados_json["cidade"], dados_json["nome"]
-
-def buscar_dados_request_nova_receita():
-    dados_json = request.json
-    return dados_json["nome"], dados_json["seletor_tabela"], dados_json["seletor_coluna"], dados_json["endereco"]
 
 @app.route("/")
 def default():
@@ -35,7 +24,7 @@ def banco_ajuda():
 """
 @app.route("/cidade/adicionar", methods=['POST'])
 def adicionar_cidade():
-    nome_da_cidade, nome_estado = buscar_nome_estado_e_cidade()
+    nome_da_cidade, nome_estado = Requests().buscar_dados('buscar_nome_estado_e_cidade')
     
     try:
         Dados().adicionar_cidade(nome_da_cidade, nome_estado)
@@ -51,7 +40,7 @@ def adicionar_cidade():
 """
 @app.route("/bairro/adicionar", methods=['POST'])
 def adicionar_bairro():
-    nome_da_cidade, nome_bairro = buscar_nome_cidade_e_bairro()
+    nome_da_cidade, nome_bairro = Requests().buscar_dados('buscar_nome_cidade_e_bairro')
     Dados().adicionar_bairro(nome_bairro, nome_da_cidade)
     return minha_resposta("Bairro {} adicionado.".format(nome_bairro))
 
@@ -73,7 +62,10 @@ def ver_todas_informacoes():
 """
 @app.route("/receita/adicionar",  methods=['POST'])
 def adicionar_receita():
-    nome_receita, seletor_tabela, seletor_coluna, endereco = buscar_dados_request_nova_receita()
+    nome_receita, seletor_tabela, seletor_coluna, endereco = Requests().buscar_dados('buscar_dados_request_nova_receita')
     Dados().adicionar_receita(nome_receita, seletor_tabela, seletor_coluna, endereco)
-    return 'oi'
-    
+    return minha_resposta('Receita {} adicionada'.format(nome_receita))
+
+@app.route("/receita/rodar",  methods=['POST'])
+def rodar_receita():
+    return minha_resposta('Receita rodada.')

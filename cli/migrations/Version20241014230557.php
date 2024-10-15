@@ -7,14 +7,11 @@ namespace Danilocgsilva\BairrosBrasileirosLinhaDeComandos;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20241014230557 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Registra o histórico da captura de dados.';
+        return 'Registra o histï¿½rico da captura de dados.';
     }
 
     public function up(Schema $schema): void
