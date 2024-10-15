@@ -2,7 +2,7 @@ from banco_dados.VariaveisConexaoBanco import VariaveisConexaoBanco
 import mysql.connector
 from src.TiposLocais import TiposLocais
 from entidades.Estado import Estado
-from src.DadoLegivel import DadoLegivel
+from src.Repositorios.Locais import Locais
 
 class Dados:
     def __init__(self):
@@ -37,14 +37,7 @@ class Dados:
         self._adicionar_local(bairro, 4, TiposLocais.bairro)
         
     def listar_todos_dados(self) -> list:
-        query = "SELECT lo.local, tl.tipo FROM locais lo LEFT JOIN tipos_locais tl ON tl.id = lo.tipo_localidade;"
-        local_cursor = self.recursodb.cursor()
-        local_cursor.execute(query)
-        meus_resultados = local_cursor.fetchall()
-        dados_legiveis = []
-        for dado_cru in meus_resultados:
-            dados_legiveis.append(DadoLegivel(dado_cru[0], dado_cru[1]))
-        return dados_legiveis
+        return Locais().listar_todos_dados()
         
     def _cidade_ja_cadastrada(self, nome_cidade: str, estado: Estado) -> bool:
         local_cursor =  self.recursodb.cursor()
