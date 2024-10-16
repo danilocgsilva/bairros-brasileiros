@@ -4,6 +4,9 @@ from src.Ajuda import Ajuda
 from src.minha_resposta import minha_resposta
 from src.DadoLegivel import DadoLegivel
 from src.Requests import Requests
+from crawler.CrawlerTabela import CrawlerTabela
+from src.Repositorios.Receitas import Receitas
+from crawler.processadores.ProcessadorCaptura import ProcessadorCaptura
 
 app = Flask(__name__)
 
@@ -68,4 +71,9 @@ def adicionar_receita():
 
 @app.route("/receita/rodar",  methods=['POST'])
 def rodar_receita():
+    receita = Receitas().bucar_por_id(1)
+    crawler = CrawlerTabela()
+    crawler.endereco = receita.endereco
+    crawler.seletor_tabela = receita.seletor_tabela
+    crawler.processador = ProcessadorCaptura()
     return minha_resposta('Receita rodada.')

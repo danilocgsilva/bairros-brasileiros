@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-from crawler.processadores.ProcessadorInterface import ProcessadorInterface
 import re
 
 class CrawlerTabela:

@@ -26,4 +26,17 @@ class Receitas:
         
     def buscar_por_nome(self):
         return Receita()
-        
+    
+    def bucar_por_id(self) -> Receita:
+        query = "SELECT id, nome, seletor_tabela, seletor_coluna, endereco FROM receitas WHERE id = %s;"
+        local_cursor = self.recursodb.cursor()
+        local_cursor.execute(query)
+        meus_resultados = local_cursor.fetchall()
+        for dado_cru in meus_resultados:
+            receita = Receita(
+                dado_cru[0],
+                dado_cru[2],
+                dado_cru[3],
+                dado_cru[4]
+            )
+        return receita
