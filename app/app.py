@@ -2,7 +2,6 @@ from flask import Flask, request
 from src.Dados import Dados
 from src.Ajuda import Ajuda
 from src.minha_resposta import minha_resposta
-from src.DadoLegivel import DadoLegivel
 from src.Requests import Requests
 from crawler.CrawlerTabela import CrawlerTabela
 from src.Repositorios.Receitas import Receitas
@@ -76,4 +75,5 @@ def rodar_receita():
     crawler.endereco = receita.endereco
     crawler.seletor_tabela = receita.seletor_tabela
     crawler.processador = ProcessadorCaptura()
+    crawler.buscarConteudo()
     return minha_resposta('Receita rodada.')

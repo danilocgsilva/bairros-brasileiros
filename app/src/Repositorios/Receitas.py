@@ -27,10 +27,10 @@ class Receitas:
     def buscar_por_nome(self):
         return Receita()
     
-    def bucar_por_id(self) -> Receita:
+    def bucar_por_id(self, id: int) -> Receita:
         query = "SELECT id, nome, seletor_tabela, seletor_coluna, endereco FROM receitas WHERE id = %s;"
         local_cursor = self.recursodb.cursor()
-        local_cursor.execute(query)
+        local_cursor.execute(query, (id, ))
         meus_resultados = local_cursor.fetchall()
         for dado_cru in meus_resultados:
             receita = Receita(
