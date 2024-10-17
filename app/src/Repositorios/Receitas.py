@@ -35,6 +35,7 @@ class Receitas:
         for dado_cru in meus_resultados:
             receita = Receita(
                 dado_cru[0],
+                dado_cru[1],
                 dado_cru[2],
                 dado_cru[3],
                 dado_cru[4]

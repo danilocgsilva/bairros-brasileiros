@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup
+from src.Repositorios.HistoricoBuscas import HistoricoBuscas
+from src.Repositorios.HistoricoCapturas import HistoricoCapturas
 import requests
 import re
+import datetime
 
 class CrawlerTabela:
     def __init__(self):
@@ -10,6 +13,9 @@ class CrawlerTabela:
         self.seletor_coluna = None
     
     def buscarConteudo(self):
+        bistoricoBuscasIniciado = HistoricoBuscas().inicia(datetime.datetime.now(), 1)
+        historicoCapturas = HistoricoCapturas()
+        
         erros_preparacao = self._verificar_erros_validacao()
         if len(erros_preparacao) > 0:
             raise Exception('Houveram impedimentos para o processamento: ' + ', '.join(erros_preparacao))
@@ -26,7 +32,13 @@ class CrawlerTabela:
             dado_cidade = str(dado_cidade_obj)
             if not self._validaDado(dado_cidade):
                 continue
-            self.processador.processar_sucesso(dado_cidade)
+            try:
+                self.processador.processar_sucesso(dado_cidade)
+                historicoCapturas.salva()
+            except Exception as e:
+                pass
+
+        bistoricoBuscasIniciado.finaliza()
             
     def _verificar_erros_validacao(self):
         erros_preparacao = []

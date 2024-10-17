@@ -3,4 +3,4 @@ from src.Dados import Dados
 
 class ProcessadorCaptura(ProcessadorInterface):
     def processar_sucesso(self, conteudo: str):
-        Dados().adicionar_cidade(conteudo)
+        Dados().adicionar_cidade(conteudo, "Amapá")

@@ -74,6 +74,7 @@ def rodar_receita():
     crawler = CrawlerTabela()
     crawler.endereco = receita.endereco
     crawler.seletor_tabela = receita.seletor_tabela
+    crawler.seletor_coluna = receita.seletor_coluna
     crawler.processador = ProcessadorCaptura()
     crawler.buscarConteudo()
     return minha_resposta('Receita rodada.')

@@ -10,4 +10,7 @@ class HistoricoCapturas:
             password=variaveisConexaoBanco.buscarSenhaBanco(),
             database=variaveisConexaoBanco.buscarNomeDoBanco()
         )
+        
+    def salva(self):
+        query = "INSERT INTO historico_capturas (nome, seletor_tabela, seletor_coluna, endereco) VALUES (%s, %s, %s, %s);"
     
