@@ -1,8 +1,7 @@
 from banco_dados.VariaveisConexaoBanco import VariaveisConexaoBanco
 import mysql.connector
-import datetime
 
-class HistoricoBuscas:
+class MensagensErrosCapturas:
     def __init__(self):
         variaveisConexaoBanco = VariaveisConexaoBanco()
         self.recursodb = mysql.connector.connect(
@@ -11,16 +10,10 @@ class HistoricoBuscas:
             password=variaveisConexaoBanco.buscarSenhaBanco(),
             database=variaveisConexaoBanco.buscarNomeDoBanco()
         )
-        self.busca_id = None
         
-    def inicia(
-        self, 
-        receita_id: int
-    ):
-        query = "INSERT INTO historico_buscas (receita_id) VALUES (%s);"
+    def salva(self, mensagem_erro: str, id_captura: int):
+        query = "INSERT INTO mensagens_erros_capturas (mensagem, historico_capturas_id) VALUES (%s, %s);"
         local_cursor = self.recursodb.cursor()
-        local_cursor.execute(query, (receita_id, ))
-        self.busca_id = local_cursor.lastrowid
+        local_cursor.execute(query, (mensagem_erro, id_captura, ))
         self.recursodb.commit()
-        return self
         

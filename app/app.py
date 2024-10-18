@@ -70,11 +70,17 @@ def adicionar_receita():
 
 @app.route("/receita/rodar",  methods=['POST'])
 def rodar_receita():
-    receita = Receitas().bucar_por_id(1)
+    id_receita = None
+    try:
+        id_receita = Requests().buscar_dados('receita_id')
+        receita = Receitas().buscar_por_id(id_receita)
+    except Exception as e:
+        return minha_resposta('Erro: ' + str(e), 500)
+    
     crawler = CrawlerTabela()
     crawler.endereco = receita.endereco
     crawler.seletor_tabela = receita.seletor_tabela
     crawler.seletor_coluna = receita.seletor_coluna
     crawler.processador = ProcessadorCaptura()
-    crawler.buscarConteudo()
-    return minha_resposta('Receita rodada.')
+    crawler.buscarConteudo(receita)
+    return minha_resposta('Receita rodada. Sucessos: ' + str(crawler.sucessos) + ", erros: " + str(crawler.erros))
