@@ -37,9 +37,9 @@ class CrawlerTabela:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, "O dado entregue não é válido.")
                 continue
             try:
-                self.processador.processar_sucesso(dado_cidade)
-                self.sucessos += 1
-                historicoCapturas.salva(datetime.datetime.now(), 1, historicoBuscasIniciado.busca_id)
+                self.processador.configurar_tipo("cidade")
+                self.processador.configurar_nome("São Paulo")
+                self._processar_sucesso(dado_cidade, historicoCapturas, historicoBuscasIniciado.busca_id)
             except Exception as e:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
             
@@ -73,3 +73,9 @@ class CrawlerTabela:
     def _registra_erro(self, historicoCapturas, historicoBuscasIniciado, mensagem):
         historicoCapturas.salva(datetime.datetime.now(), 0, historicoBuscasIniciado.busca_id, mensagem)
         self.erros += 1
+        
+    def _processar_sucesso(self, dado_cidade, historicoCapturas, historico_busca_id):
+        self.processador.processar_sucesso(dado_cidade)
+        self.sucessos += 1
+        historicoCapturas.salva(datetime.datetime.now(), 1, historico_busca_id)
+        
