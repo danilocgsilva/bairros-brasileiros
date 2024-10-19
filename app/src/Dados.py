@@ -20,9 +20,10 @@ class Dados:
         nome_receita: str, 
         seletor_tabela: str, 
         seletor_coluna: str, 
-        endereco: str
+        endereco: str,
+        tipo_localidade: str
     ):
-        Receitas().salva(nome_receita, seletor_tabela, seletor_coluna, endereco)
+        Receitas().salva(nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade)
         
     def adicionar_cidade(self, nome_cidade: str, nome_estado: str):
         estados = Locais().buscar_estados(nome_estado)

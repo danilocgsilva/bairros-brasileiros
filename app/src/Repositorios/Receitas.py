@@ -17,11 +17,12 @@ class Receitas:
         nome_receita: str, 
         seletor_tabela: str, 
         seletor_coluna: str, 
-        endereco: str
+        endereco: str,
+        tipo_localidade: str
     ):
-        query = "INSERT INTO receitas (nome, seletor_tabela, seletor_coluna, endereco) VALUES (%s, %s, %s, %s);"
+        query = "INSERT INTO receitas (nome, seletor_tabela, seletor_coluna, endereco, tipo_localidade) VALUES (%s, %s, %s, %s, %s);"
         local_cursor = self.recursodb.cursor()
-        local_cursor.execute(query, (nome_receita, seletor_tabela, seletor_coluna, endereco))
+        local_cursor.execute(query, (nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade))
         self.recursodb.commit()
         
     def buscar_por_nome(self):

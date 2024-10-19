@@ -30,6 +30,7 @@ class AdicionarReceita extends Command
         $seletotTabela = $this->perguntar('Qual o seletor html da tabela?');
         $seletorColuna = $this->perguntar('Qual o seletor html da coluna?');
         $endereco = $this->perguntar('Qual o endereço para a busca da informação?');
+        $tipoLocalidade = $this->perguntar('Qual o tipo de localidade?');
 
         $guzzleClient = new Client();
 
@@ -41,6 +42,7 @@ class AdicionarReceita extends Command
                     'seletor_tabela' => $seletotTabela,
                     'seletor_coluna' => $seletorColuna,
                     'endereco' => $endereco,
+                    'tipo_localidade' => $tipoLocalidade
                 ]
             ]            
         );

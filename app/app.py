@@ -64,10 +64,15 @@ def ver_todas_informacoes():
 """
 @app.route("/receita/adicionar",  methods=['POST'])
 def adicionar_receita():
-    nome_receita, seletor_tabela, seletor_coluna, endereco = Requests().buscar_dados('buscar_dados_request_nova_receita')
-    Dados().adicionar_receita(nome_receita, seletor_tabela, seletor_coluna, endereco)
+    nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade = Requests().buscar_dados('buscar_dados_request_nova_receita')
+    Dados().adicionar_receita(nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade)
     return minha_resposta('Receita {} adicionada'.format(nome_receita))
 
+"""
+{
+    "receita_id": 1
+}
+"""
 @app.route("/receita/rodar",  methods=['POST'])
 def rodar_receita():
     id_receita = None

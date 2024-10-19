@@ -21,7 +21,8 @@ final class Version20241012150945 extends AbstractMigration
             `nome` VARCHAR(255),
             `seletor_tabela` CHAR(192),
             `seletor_coluna` CHAR(192),
-            `endereco` VARCHAR(255)
+            `endereco` VARCHAR(255),
+            `tipo_localidade` CHAR(32)
         );');
     }
 

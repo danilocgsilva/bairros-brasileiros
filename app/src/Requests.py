@@ -26,8 +26,9 @@ class Requests:
         seletor_tabela = self.dados_json["seletor_tabela"]
         seletor_coluna = self.dados_json["seletor_coluna"]
         endereco = self.dados_json["endereco"]
+        tipo_localidade = self.dados_json["tipo_localidade"]
         
-        return nome, seletor_tabela, seletor_coluna, endereco
+        return nome, seletor_tabela, seletor_coluna, endereco, tipo_localidade
     
     def _buscar_id_receita(self):
         return self.dados_json["receita_id"]
