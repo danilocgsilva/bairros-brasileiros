@@ -1,17 +1,7 @@
-import mysql.connector
-from banco_dados.VariaveisConexaoBanco import VariaveisConexaoBanco
 from entidades.Receita import Receita
+from src.Repositorios.Conexao import Conexao
 
-class Receitas:
-    def __init__(self):
-        variaveisConexaoBanco = VariaveisConexaoBanco()
-        self.recursodb = mysql.connector.connect(
-            host=variaveisConexaoBanco.buscarHost(),
-            user=variaveisConexaoBanco.buscarUsuarioBanco(),
-            password=variaveisConexaoBanco.buscarSenhaBanco(),
-            database=variaveisConexaoBanco.buscarNomeDoBanco()
-        )
-        
+class Receitas(Conexao):
     def salva(
         self, 
         nome_receita: str, 

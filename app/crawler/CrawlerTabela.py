@@ -25,7 +25,7 @@ class CrawlerTabela:
     
     def buscarConteudo(self, historicoBuscasIniciado = None):
         if not self.processador.esta_pronto:
-            raise Exception('O processador não está pront. Verifique a implementação do método esta_pronto para resolver is requisitos do processador.')
+            raise Exception('O processador não está pronto. Verifique a implementação do método esta_pronto para resolver is requisitos do processador.')
         
         if not historicoBuscasIniciado:
             historicoBuscasIniciado = HistoricoBuscas().inicia()
@@ -52,6 +52,7 @@ class CrawlerTabela:
                 self._processar_sucesso(dado_cidade, historicoCapturas, historicoBuscasIniciado.busca_id)
             except Exception as e:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
+        return "Sucessos: {}, erros: {}.".format(self.sucessos, self.erros)
             
     def _verificar_erros_validacao(self):
         erros_preparacao = []
@@ -84,8 +85,8 @@ class CrawlerTabela:
         historicoCapturas.salva(datetime.datetime.now(), 0, historicoBuscasIniciado.busca_id, mensagem)
         self.erros += 1
         
-    def _processar_sucesso(self, dado_cidade, historicoCapturas, historico_busca_id):
-        self.processador.processar_sucesso(dado_cidade)
+    def _processar_sucesso(self, nome_local, historicoCapturas, historico_busca_id):
+        self.processador.processar_sucesso(nome_local)
         self.sucessos += 1
         historicoCapturas.salva(datetime.datetime.now(), 1, historico_busca_id)
         

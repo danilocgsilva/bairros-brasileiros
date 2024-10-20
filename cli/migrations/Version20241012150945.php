@@ -23,12 +23,14 @@ final class Version20241012150945 extends AbstractMigration
             `seletor_coluna` CHAR(192),
             `endereco` VARCHAR(255),
             `tipo_localidade` CHAR(32),
-            `nome_localidade_pai` VARCHAR(64)
+            `localidade_pai` INT UNSIGNED
         );');
+        $this->addSql("ALTER TABLE `receitas` ADD CONSTRAINT `receitas_locais_id` FOREIGN KEY (`localidade_pai`) REFERENCES `locais` (`id`);");
     }
 
     public function down(Schema $schema): void
     {
+        $this->addSql("ALTER TABLE receitas DROP FOREIGN KEY receitas_locais_id;");
         $this->addSql('DROP TABLE receitas;');
     }
 }

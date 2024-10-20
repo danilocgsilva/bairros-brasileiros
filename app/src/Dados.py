@@ -2,8 +2,11 @@ from banco_dados.VariaveisConexaoBanco import VariaveisConexaoBanco
 import mysql.connector
 from src.TiposLocais import TiposLocais
 from entidades.Estado import Estado
+from entidades.Cidade import Cidade
 from src.Repositorios.Locais import Locais
 from src.Repositorios.Receitas import Receitas
+from src.Repositorios.Estados import Estados
+from src.Repositorios.Cidades import Cidades
 
 class Dados:
     def __init__(self):
@@ -37,10 +40,11 @@ class Dados:
             raise Exception("A cidade {} já foi cadastrada para o estado {}.".format(nome_cidade, nome_estado))
         self._adicionar_local(nome_cidade, estado.id, TiposLocais.cidade)
         
-    def adicionar_bairro(self, bairro: str, cidade: str):
-        if not self._nome_da_cidade_existe(cidade):
+    def adicionar_bairro(self, bairro: str, cidade: str, estado: str):
+        if not self._nome_da_cidade_existe(cidade, estado):
             raise Exception("O nome da cidade não existe")
-        self._adicionar_local(bairro, 4, TiposLocais.bairro)
+        cidade = Cidades().buscar_por_nome(cidade, estado)
+        self._adicionar_local(bairro, cidade.id, TiposLocais.bairro)
         
     def listar_todos_dados(self) -> list:
         return Locais().listar_todos_dados()
@@ -55,3 +59,16 @@ class Dados:
         local_cursor = self.recursodb.cursor()
         local_cursor.execute("INSERT INTO locais (local, tipo_localidade, parentalidade) VALUES (%s, %s, %s);", (nome_local, tipo.value, parentalidade))
         self.recursodb.commit()
+        
+    def _nome_da_cidade_existe(self, cidade: str, estado: str) -> bool:
+        estado = Estados().buscar_por_nome(estado)
+        query = "SELECT id, local FROM locais WHERE parentalidade = %s AND local = %s;"
+        local_cursor = self.recursodb.cursor()
+        local_cursor.execute(query, (estado.id, cidade, ))
+        meus_resultados = local_cursor.fetchall()
+        cidades = []
+        for cidade_resultado in meus_resultados:
+            cidades.append(Cidade(cidade_resultado[0], cidade_resultado[1]))
+        return len(cidades) == 1
+        
+    

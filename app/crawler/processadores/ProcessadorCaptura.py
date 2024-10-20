@@ -5,6 +5,7 @@ class ProcessadorCaptura(ProcessadorInterface):
     def __init__(self):
         self.tipo = None
         self.nome = None
+        self.estado = None
         
     def configurar_nome(self, nome: str):
         self.nome = nome
@@ -14,9 +15,13 @@ class ProcessadorCaptura(ProcessadorInterface):
             raise Exception("O tipo {} não é válido.".format(tipo))
         self.tipo = tipo
     
-    def processar_sucesso(self, conteudo: str):
+    def processar_sucesso(self, nome_local: str):
         if self.tipo == "cidade":
-            Dados().adicionar_cidade(conteudo, self.nome)
+            Dados().adicionar_cidade(nome_local, self.nome)
+        elif self.tipo == "bairro":
+            if self.estado == None:
+                raise Exception('É preciso determinar o estado para o processador. Propriedade: estado.')
+            Dados().adicionar_bairro(nome_local, self.nome, self.estado)
         else:
             raise Exception("O processador não tem tipo definido.")
         

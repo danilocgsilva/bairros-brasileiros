@@ -9,7 +9,9 @@ crawler.seletor_coluna = 'td:nth-child(1) a'
 processador_captura = ProcessadorCaptura()
 processador_captura.configurar_nome("Macapá")
 processador_captura.configurar_tipo("bairro")
+processador_captura.estado = "Amapá"
     
 crawler.processador = processador_captura
 
 resultado = crawler.buscarConteudo()
+print(resultado)

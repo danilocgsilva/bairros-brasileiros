@@ -1,19 +1,9 @@
 from src.DadoLegivel import DadoLegivel
+from src.Repositorios.Conexao import Conexao
 from entidades.Estado import Estado
 from entidades.Cidade import Cidade
-from banco_dados.VariaveisConexaoBanco import VariaveisConexaoBanco
-import mysql.connector
 
-class Locais:
-    def __init__(self):
-        variaveisConexaoBanco = VariaveisConexaoBanco()
-        self.recursodb = mysql.connector.connect(
-            host=variaveisConexaoBanco.buscarHost(),
-            user=variaveisConexaoBanco.buscarUsuarioBanco(),
-            password=variaveisConexaoBanco.buscarSenhaBanco(),
-            database=variaveisConexaoBanco.buscarNomeDoBanco()
-        )
-    
+class Locais(Conexao):
     def listar_todos_dados(self) -> list:
         query = "SELECT lo.local, tl.tipo FROM locais lo LEFT JOIN tipos_locais tl ON tl.id = lo.tipo_localidade;"
         local_cursor = self.recursodb.cursor()

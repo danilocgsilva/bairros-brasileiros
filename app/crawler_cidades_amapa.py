@@ -7,4 +7,5 @@ crawler.seletor_tabela = 'table.wikitable.sortable tbody tr'
 crawler.seletor_coluna = 'td:nth-child(2) a'
 crawler.processador = ProcessadorPrint()
 
-crawler.buscarConteudo()
+resultado = crawler.buscarConteudo()
+print(resultado)

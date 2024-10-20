@@ -1,17 +1,7 @@
-from banco_dados.VariaveisConexaoBanco import VariaveisConexaoBanco
 from src.Repositorios.MensagensErrosCapturas import MensagensErrosCapturas
-import mysql.connector
+from src.Repositorios.Conexao import Conexao
 
-class HistoricoCapturas:
-    def __init__(self):
-        variaveisConexaoBanco = VariaveisConexaoBanco()
-        self.recursodb = mysql.connector.connect(
-            host=variaveisConexaoBanco.buscarHost(),
-            user=variaveisConexaoBanco.buscarUsuarioBanco(),
-            password=variaveisConexaoBanco.buscarSenhaBanco(),
-            database=variaveisConexaoBanco.buscarNomeDoBanco()
-        )
-        
+class HistoricoCapturas(Conexao):
     def salva(self, data_captura, sucesso: int, historico_buscas_id: int, mensagem_erro = None):
         query = "INSERT INTO historico_capturas (data_captura, sucesso, historico_buscas_id) VALUES (%s, %s, %s);"
         local_cursor = self.recursodb.cursor()

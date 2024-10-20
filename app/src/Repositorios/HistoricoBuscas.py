@@ -1,16 +1,11 @@
 from banco_dados.VariaveisConexaoBanco import VariaveisConexaoBanco
 import mysql.connector
 import datetime
+from src.Repositorios.Conexao import Conexao
 
-class HistoricoBuscas:
+class HistoricoBuscas(Conexao):
     def __init__(self):
-        variaveisConexaoBanco = VariaveisConexaoBanco()
-        self.recursodb = mysql.connector.connect(
-            host=variaveisConexaoBanco.buscarHost(),
-            user=variaveisConexaoBanco.buscarUsuarioBanco(),
-            password=variaveisConexaoBanco.buscarSenhaBanco(),
-            database=variaveisConexaoBanco.buscarNomeDoBanco()
-        )
+        super().__init__()
         self.busca_id = None
         
     def inicia(

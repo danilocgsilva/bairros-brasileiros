@@ -15,3 +15,4 @@ processador_captura.configurar_tipo("cidade")
 crawler.processador = processador_captura
 
 resultado = crawler.buscarConteudo()
+print(resultado)
