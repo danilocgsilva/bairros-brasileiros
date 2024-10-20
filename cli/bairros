@@ -3,13 +3,16 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\AdicionarCidade;
-use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\MigrarCommand;
-use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\AjudaBanco;
+use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\{
+    AdicionarCidade,
+    MigrarCommand,
+    AjudaBanco,
+    ListarTodosLocais,
+    AdicionarReceita,
+    RodarReceita
+};
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\TradutorDeComandos;
 use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Aplicacao;
-use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\ListarTodosLocais;
-use Danilocgsilva\BairrosBrasileirosLinhaDeComandos\Comandos\AdicionarReceita;
 
 $application = new Aplicacao();
 
@@ -24,6 +27,7 @@ $application->add(new AjudaBanco());
 $application->add(new AdicionarCidade());
 $application->add(new ListarTodosLocais());
 $application->add(new AdicionarReceita());
+$application->add(new RodarReceita());
 
 $definitions = $application->getDefinition();
 

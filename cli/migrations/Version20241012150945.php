@@ -22,7 +22,8 @@ final class Version20241012150945 extends AbstractMigration
             `seletor_tabela` CHAR(192),
             `seletor_coluna` CHAR(192),
             `endereco` VARCHAR(255),
-            `tipo_localidade` CHAR(32)
+            `tipo_localidade` CHAR(32),
+            `nome_localidade_pai` VARCHAR(64)
         );');
     }
 
