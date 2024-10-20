@@ -1,5 +1,6 @@
 from src.DadoLegivel import DadoLegivel
 from entidades.Estado import Estado
+from entidades.Cidade import Cidade
 from banco_dados.VariaveisConexaoBanco import VariaveisConexaoBanco
 import mysql.connector
 
@@ -31,3 +32,17 @@ class Locais:
         for estado_resultado in meus_resultados:
             estados.append(Estado(id=estado_resultado[0], nome=estado_resultado[1]))
         return estados
+    
+    def cidade_existe(self, nome_cidade, nome_estado) -> bool:
+        estados = self.buscar_estados(nome_estado)
+        estado = estados[0]
+        local_cursor = self.recursodb.cursor()
+        query = "SELECT id FROM locais WHERE tipo_localidade = %s AND parentalidade = %s"
+        local_cursor.execute(query, (2, estado.id, ))
+        meus_resultados = local_cursor.fetchall()
+        cidades = []
+        for cidade_resultado in meus_resultados:
+            cidades.append(Cidade(id=cidade_resultado[0], nome=cidade_resultado[1]))
+        return len(cidades) == 1
+        
+    

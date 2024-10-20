@@ -25,6 +25,9 @@ class AdicionarReceita extends Command
     protected function configure(): void
     {
         $this->addOption('nome_receita', 'r', InputArgument::OPTIONAL, 'O nome da receita');
+        $this->addOption('seletor_tabela', 't', InputArgument::OPTIONAL, 'O seletor da tabela');
+        $this->addOption('seletor_coluna', 'c', InputArgument::OPTIONAL, 'O seletor da coluna');
+        $this->addOption('endereco', 'e', InputArgument::OPTIONAL, 'O endereço para a busca da informação');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -33,10 +36,10 @@ class AdicionarReceita extends Command
         $this->output = $output;
 
         $nomeReceita = $this->buscarOpcao('nome_receita', 'Qual o nome da receita a ser adicionada?');
-        $seletotTabela = $this->perguntar('Qual o seletor html da tabela?');
-        $seletorColuna = $this->perguntar('Qual o seletor html da coluna?');
-        $endereco = $this->perguntar('Qual o endereço para a busca da informação?');
-        $tipoLocalidade = $this->perguntar('Qual o tipo de localidade?');
+        $seletotTabela = $this->buscarOpcao('seletor_tabela', 'Qual o seletor html da tabela?');
+        $seletorColuna = $this->buscarOpcao('seletor_coluna', 'Qual o seletor html da coluna?');
+        $endereco = $this->buscarOpcao('endereco', 'Qual o endereço para a busca da informação?');
+        $tipoLocalidade = $this->perguntar('Qual o tipo de localidade (cidade ou bairro)?');
         $nomeLocalidadePai = $this->perguntar('Qual o nome da localidade pai (se houver)?');
 
         $guzzleClient = new Client();
