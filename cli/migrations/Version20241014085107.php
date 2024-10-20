@@ -18,7 +18,7 @@ final class Version20241014085107 extends AbstractMigration
     {
         $this->addSql('CREATE TABLE historico_buscas (
             `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-            `receita_id` INT UNSIGNED NOT NULL
+            `receita_id` INT UNSIGNED
         );');
         $this->addSql("ALTER TABLE historico_buscas ADD CONSTRAINT historico_buscas_receitas FOREIGN KEY (receita_id) REFERENCES `receitas` (`id`);");
     }

@@ -19,3 +19,8 @@ class ProcessadorCaptura(ProcessadorInterface):
             Dados().adicionar_cidade(conteudo, self.nome)
         else:
             raise Exception("O processador não tem tipo definido.")
+        
+    def esta_pronto(self):
+        if self.tipo == None or self.nome == None:
+            return False
+        return True

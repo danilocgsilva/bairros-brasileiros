@@ -15,12 +15,16 @@ class HistoricoBuscas:
         
     def inicia(
         self, 
-        receita_id: int
+        receita_id = None
     ):
-        query = "INSERT INTO historico_buscas (receita_id) VALUES (%s);"
-        local_cursor = self.recursodb.cursor()
-        local_cursor.execute(query, (receita_id, ))
+        if receita_id:
+            query = "INSERT INTO historico_buscas (receita_id) VALUES (%s);"
+            local_cursor = self.recursodb.cursor()
+            local_cursor.execute(query, (receita_id, ))
+        else:
+            query = "INSERT INTO historico_buscas VALUES ();"
+            local_cursor = self.recursodb.cursor()
+            local_cursor.execute(query)
         self.busca_id = local_cursor.lastrowid
         self.recursodb.commit()
         return self
-        

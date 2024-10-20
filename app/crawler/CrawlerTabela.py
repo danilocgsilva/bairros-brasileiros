@@ -48,8 +48,12 @@ class CrawlerTabela:
         #     except Exception as e:
         #         self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
     
-    def buscarConteudo(self, tipo_localidade, localidade_pai, historicoBuscasIniciado = None):
+    def buscarConteudo(self, historicoBuscasIniciado = None):
         # historicoBuscasIniciado = HistoricoBuscas().inicia()
+        
+        if not self.processador.esta_pronto:
+            raise Exception('O processador não está pront. Verifique a implementação do método esta_pronto para resolver is requisitos do processador.')
+        
         if not historicoBuscasIniciado:
             historicoBuscasIniciado = HistoricoBuscas().inicia()
         historicoCapturas = HistoricoCapturas()
@@ -72,8 +76,6 @@ class CrawlerTabela:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, "O dado entregue não é válido.")
                 continue
             try:
-                self.processador.configurar_tipo(tipo_localidade)
-                self.processador.configurar_nome(localidade_pai)
                 self._processar_sucesso(dado_cidade, historicoCapturas, historicoBuscasIniciado.busca_id)
             except Exception as e:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
