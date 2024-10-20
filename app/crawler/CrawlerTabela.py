@@ -14,9 +14,44 @@ class CrawlerTabela:
         self.seletor_coluna = None
         self.erros = 0
         self.sucessos = 0
-    
-    def buscarConteudo(self, receita: Receita):
+
+    def buscarConteudoReceita(self, receita: Receita):
         historicoBuscasIniciado = HistoricoBuscas().inicia(receita.id)
+        self.buscarConteudo(
+            receita.tipo_localicade,
+            receita.nome_localidade_pai,
+            historicoBuscasIniciado
+        )
+        # historicoCapturas = HistoricoCapturas()
+        
+        # erros_preparacao = self._verificar_erros_validacao()
+        # if len(erros_preparacao) > 0:
+        #     raise Exception('Houveram impedimentos para o processamento: ' + ', '.join(erros_preparacao))
+            
+        # response = requests.get(self.endereco)
+        # htmlcru = response.content
+        # conteudo_parseado = BeautifulSoup(htmlcru, "html.parser")
+        # linhas_tabela_cidades_amapa = conteudo_parseado.select(self.seletor_tabela)
+        # for cidade in linhas_tabela_cidades_amapa:
+        #     if self._eHeader(cidade):
+        #         continue
+        #     ultimo_elemento_contendo_dado = cidade.select(self.seletor_coluna)[0]
+        #     dado_cidade_obj = ultimo_elemento_contendo_dado.contents[0]
+        #     dado_cidade = str(dado_cidade_obj)
+        #     if not self._validaDado(dado_cidade):
+        #         self._registra_erro(historicoCapturas, historicoBuscasIniciado, "O dado entregue não é válido.")
+        #         continue
+        #     try:
+        #         self.processador.configurar_tipo(receita.tipo_localicade)
+        #         self.processador.configurar_nome(receita.nome_localidade_pai)
+        #         self._processar_sucesso(dado_cidade, historicoCapturas, historicoBuscasIniciado.busca_id)
+        #     except Exception as e:
+        #         self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
+    
+    def buscarConteudo(self, tipo_localidade, localidade_pai, historicoBuscasIniciado = None):
+        # historicoBuscasIniciado = HistoricoBuscas().inicia()
+        if not historicoBuscasIniciado:
+            historicoBuscasIniciado = HistoricoBuscas().inicia()
         historicoCapturas = HistoricoCapturas()
         
         erros_preparacao = self._verificar_erros_validacao()
@@ -37,8 +72,8 @@ class CrawlerTabela:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, "O dado entregue não é válido.")
                 continue
             try:
-                self.processador.configurar_tipo(receita.tipo_localicade)
-                self.processador.configurar_nome(receita.nome_localidade_pai)
+                self.processador.configurar_tipo(tipo_localidade)
+                self.processador.configurar_nome(localidade_pai)
                 self._processar_sucesso(dado_cidade, historicoCapturas, historicoBuscasIniciado.busca_id)
             except Exception as e:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
