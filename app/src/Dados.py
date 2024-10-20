@@ -25,9 +25,9 @@ class Dados:
         seletor_coluna: str, 
         endereco: str,
         tipo_localidade: str,
-        nome_localidade_pai: str
+        id_localidade_pai: int
     ):
-        Receitas().salva(nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade, nome_localidade_pai)
+        Receitas().salva(nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade, id_localidade_pai)
         
     def adicionar_cidade(self, nome_cidade: str, nome_estado: str):
         estados = Locais().buscar_estados(nome_estado)

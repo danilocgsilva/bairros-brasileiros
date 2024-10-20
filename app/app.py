@@ -61,13 +61,13 @@ def ver_todas_informacoes():
     "seletor_coluna": "td:nth-child(2) a",
     "endereco": "https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Amap%C3%A1_por_popula%C3%A7%C3%A3o"
     "tipo_localidade": "cidade"
-    "nome_localidade_pai": "Amapá"
+    "id_localidade_pai": "9"
 }
 """
 @app.route("/receita/adicionar",  methods=['POST'])
 def adicionar_receita():
-    nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade, nome_localidade_pai = Requests().buscar_dados('buscar_dados_request_nova_receita')
-    Dados().adicionar_receita(nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade, nome_localidade_pai)
+    nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade, id_localidade_pai = Requests().buscar_dados('buscar_dados_request_nova_receita')
+    Dados().adicionar_receita(nome_receita, seletor_tabela, seletor_coluna, endereco, tipo_localidade, id_localidade_pai)
     return minha_resposta('Receita {} adicionada'.format(nome_receita))
 
 """
@@ -92,3 +92,9 @@ def rodar_receita():
     crawler.buscarConteudo(receita)
 
     return minha_resposta('Receita rodada. Sucessos: ' + str(crawler.sucessos) + ", erros: " + str(crawler.erros))
+
+@app.route("/receitas",  methods=['GET'])
+def listar_receitas():
+    receitas = Receitas().todas()
+    receitas_nomes = list(map(lambda x: x.nome, receitas))
+    return minha_resposta(receitas_nomes)

@@ -28,6 +28,8 @@ class AdicionarReceita extends Command
         $this->addOption('seletor_tabela', 't', InputArgument::OPTIONAL, 'O seletor da tabela');
         $this->addOption('seletor_coluna', 'c', InputArgument::OPTIONAL, 'O seletor da coluna');
         $this->addOption('endereco', 'e', InputArgument::OPTIONAL, 'O endereço para a busca da informação');
+        $this->addOption('tipo_localidade', 'tl', InputArgument::OPTIONAL, 'O tipo de localidade a ser inserido');
+        $this->addOption('id_localidade_pai', 'p', InputArgument::OPTIONAL, 'O id da localidade pai, se houver.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -39,8 +41,8 @@ class AdicionarReceita extends Command
         $seletotTabela = $this->buscarOpcao('seletor_tabela', 'Qual o seletor html da tabela?');
         $seletorColuna = $this->buscarOpcao('seletor_coluna', 'Qual o seletor html da coluna?');
         $endereco = $this->buscarOpcao('endereco', 'Qual o endereço para a busca da informação?');
-        $tipoLocalidade = $this->perguntar('Qual o tipo de localidade (cidade ou bairro)?');
-        $nomeLocalidadePai = $this->perguntar('Qual o nome da localidade pai (se houver)?');
+        $tipoLocalidade = $this->buscarOpcao('tipo_localidade', 'Qual o tipo de localidade a ser inserido (cidade ou bairro)?');
+        $nomeLocalidadePai = $this->buscarOpcao('id_localidade_pai', 'Qual o id da localidade pai (se houver)?');
 
         $guzzleClient = new Client();
 
@@ -53,7 +55,7 @@ class AdicionarReceita extends Command
                     'seletor_coluna' => $seletorColuna,
                     'endereco' => $endereco,
                     'tipo_localidade' => $tipoLocalidade,
-                    'nome_localidade_pai' => $nomeLocalidadePai
+                    'id_localidade_pai' => $nomeLocalidadePai
                 ]
             ]            
         );
