@@ -17,14 +17,10 @@ class CrawlerTabela:
 
     def buscarConteudoReceita(self, receita: Receita):
         historicoBuscasIniciado = HistoricoBuscas().inicia(receita.id)
-        self.buscarConteudo(
-            receita.tipo_localicade,
-            receita.nome_localidade_pai,
-            historicoBuscasIniciado
-        )
+        self.buscarConteudo(historicoBuscasIniciado)
     
     def buscarConteudo(self, historicoBuscasIniciado = None):
-        if not self.processador.esta_pronto:
+        if not self.processador.esta_pronto():
             raise Exception('O processador não está pronto. Verifique a implementação do método esta_pronto para resolver is requisitos do processador.')
         
         if not historicoBuscasIniciado:
