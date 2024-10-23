@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from src.Repositorios.HistoricoBuscas import HistoricoBuscas
 from src.Repositorios.HistoricoCapturas import HistoricoCapturas
+from crawler.parseadores.Subselect import Subselect
 import requests
 import re
 import datetime
@@ -15,6 +16,8 @@ class CrawlerTabela:
         self.erros = 0
         self.sucessos = 0
         self.next_next = False
+        self.next_num = None
+        self.parseador = None
 
     def buscarConteudoReceita(self, receita: Receita):
         historicoBuscasIniciado = HistoricoBuscas().inicia(receita.id)
@@ -22,7 +25,7 @@ class CrawlerTabela:
     
     def buscarConteudo(self, historicoBuscasIniciado = None):
         if not self.processador.esta_pronto():
-            raise Exception('O processador não está pronto. Verifique a implementação do método esta_pronto para resolver is requisitos do processador.')
+            raise Exception('O processador nÃ£o estÃ¡ pronto. Verifique a implementaÃ§Ã£o do mÃ©todo esta_pronto para resolver is requisitos do processador.')
         
         if not historicoBuscasIniciado:
             historicoBuscasIniciado = HistoricoBuscas().inicia()
@@ -36,24 +39,23 @@ class CrawlerTabela:
         htmlcru = response.content
         conteudo_parseado = BeautifulSoup(htmlcru, "html.parser")
         linhas_tabela_cidades_amapa = conteudo_parseado.select(self.seletor_tabela)
+        print("Temos " + str(len(linhas_tabela_cidades_amapa)) + " ocorências.")
+        
         for cidade in linhas_tabela_cidades_amapa:
             if self._eHeader(cidade):
                 continue
             
-            if self.seletor_coluna:
-                ultimo_elemento_contendo_dado = cidade.select(self.seletor_coluna)[0]
-            else:
-                ultimo_elemento_contendo_dado = cidade
-                
-            if self.next_next:
-                dado_cidade = 'here'
-            else:
-                dado_cidade_obj = ultimo_elemento_contendo_dado.contents[0]
-                dado_cidade = str(dado_cidade_obj)
+            dado_cidade = None
+            try:
+                dado_cidade = self.parseador.buscar_dado_iteracao(cidade)
+            except Exception as e:
+                self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
+                continue
                 
             if not self._validaDado(dado_cidade):
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, "O dado entregue não é válido.")
                 continue
+            
             try:
                 self._processar_sucesso(dado_cidade, historicoCapturas, historicoBuscasIniciado.busca_id)
             except Exception as e:
@@ -77,7 +79,7 @@ class CrawlerTabela:
         if len(celulas_header) > 0:
             return True
         return False
-
+    
     def _validaDado(self, dado):
         if not type(dado).__name__ == 'str':
             return False
