@@ -1,3 +1,5 @@
+import sys
+sys.path.append("")
 from crawler.CrawlerTabela import CrawlerTabela
 from crawler.processadores.ProcessadorCaptura import ProcessadorCaptura
             
