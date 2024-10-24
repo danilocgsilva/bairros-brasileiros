@@ -25,7 +25,7 @@ class CrawlerTabela:
     
     def buscarConteudo(self, historicoBuscasIniciado = None):
         if not self.processador.esta_pronto():
-            raise Exception('O processador nÃ£o estÃ¡ pronto. Verifique a implementaÃ§Ã£o do mÃ©todo esta_pronto para resolver is requisitos do processador.')
+            raise Exception('O processador não está pronto. Verifique a implementação do método esta_pronto para resolver is requisitos do processador.')
         
         if not historicoBuscasIniciado:
             historicoBuscasIniciado = HistoricoBuscas().inicia()

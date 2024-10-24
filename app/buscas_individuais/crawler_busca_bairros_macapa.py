@@ -1,7 +1,7 @@
 import sys
 sys.path.append("")
 from crawler.CrawlerTabela import CrawlerTabela
-from crawler.processadores.ProcessadorCaptura import ProcessadorCaptura
+from crawler.processadores.ProcessadorPrint import ProcessadorPrint
 from crawler.parseadores.Subselect import Subselect
 
 def busca_bairros_macapa():
@@ -13,10 +13,10 @@ def busca_bairros_macapa():
 
     crawler.parseador = Subselect('td:nth-child(1) a')
 
-    processador_captura = ProcessadorCaptura()
-    processador_captura.configurar_nome("Macapá")
-    processador_captura.configurar_tipo("bairro")
-    processador_captura.estado = "Amapá"
+    processador_captura = ProcessadorPrint()
+    #processador_captura.configurar_nome("Macapá")
+    #processador_captura.configurar_tipo("bairro")
+    #processador_captura.estado = "Amapá"
         
     crawler.processador = processador_captura
 
