@@ -51,13 +51,9 @@ class CrawlerTabela:
             except Exception as e:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
                 continue
-                
-            if not self._validaDado(dado_cidade):
-                self._registra_erro(historicoCapturas, historicoBuscasIniciado, "O dado entregue não é válido.")
-                continue
             
             try:
-                self._processar_sucesso(dado_cidade, historicoCapturas, historicoBuscasIniciado.busca_id)
+                self._processar_sucesso(dado_cidade.nome, historicoCapturas, historicoBuscasIniciado.busca_id)
             except Exception as e:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
         return "Sucessos: {}, erros: {}.".format(self.sucessos, self.erros)
@@ -80,15 +76,9 @@ class CrawlerTabela:
             return True
         return False
     
-    def _validaDado(self, dado):
-        if not type(dado).__name__ == 'str':
-            return False
-        if re.search(r"<", dado):
-            return False
-        return True
-    
     def _registra_erro(self, historicoCapturas, historicoBuscasIniciado, mensagem):
         historicoCapturas.salva(datetime.datetime.now(), 0, historicoBuscasIniciado.busca_id, mensagem)
+        self.processador.processar_erro(mensagem)
         self.erros += 1
         
     def _processar_sucesso(self, nome_local, historicoCapturas, historico_busca_id):

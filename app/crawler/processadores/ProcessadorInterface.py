@@ -5,6 +5,9 @@ class ProcessadorInterface(abc.ABC):
     def processar_sucesso(self):
         pass
     
+    def processar_erro(self):
+        pass
+    
     @abc.abstractmethod
     def esta_pronto(self) -> bool:
         pass
