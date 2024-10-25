@@ -17,18 +17,18 @@ final class Version20241023082614 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $this->addSql(
-            "CREATE TABLE sigas_estados (
+            "CREATE TABLE siglas_estados (
                 `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
                 `sigla` CHAR(2),
                 `estado_id` INT UNSIGNED NOT NULL
             );"
         );
-        $this->addSql("ALTER TABLE sigas_estados ADD CONSTRAINT siglas_estados_locais_estados FOREIGN KEY (estado_id) REFERENCES locais (id);");
+        $this->addSql("ALTER TABLE siglas_estados ADD CONSTRAINT siglas_estados_locais_estados FOREIGN KEY (estado_id) REFERENCES locais (id);");
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql("ALTER TABLE sigas_estados DROP FOREIGN KEY sigas_estados;");
-        $this->addSql("DROP TABLE siglas_estadods;");
+        $this->addSql("ALTER TABLE siglas_estados DROP FOREIGN KEY siglas_estados_locais_estados;");
+        $this->addSql("DROP TABLE siglas_estados;");
     }
 }

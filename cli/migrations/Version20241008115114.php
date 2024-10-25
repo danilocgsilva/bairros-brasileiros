@@ -28,7 +28,7 @@ final class Version20241008115114 extends AbstractMigration
         $this->addSql("INSERT INTO locais (local, tipo_localidade) VALUES ('Amazonas', 3);");
         $this->addSql("INSERT INTO locais (local, tipo_localidade) VALUES ('Bahia', 3);");
         $this->addSql("INSERT INTO locais (local, tipo_localidade) VALUES ('Ceará', 3);");
-        $this->addSql("INSERT INTO locais (local, tipo_localidade) VALUES ('Distrito Federal', 3);");
+        $this->addSql("INSERT INTO locais (local, tipo_localidade) VALUES ('Mato Grosso do Sul', 3);");
         $this->addSql("INSERT INTO locais (local, tipo_localidade) VALUES ('Espírito Santo', 3);");
         $this->addSql("INSERT INTO locais (local, tipo_localidade) VALUES ('Goiás', 3);");
         $this->addSql("INSERT INTO locais (local, tipo_localidade) VALUES ('Maranhão', 3);");

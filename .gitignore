@@ -10,3 +10,5 @@ app/src/Repositorios/__pycache__/
 .idea/*
 app/buscas_individuais/__pycache__/
 app/crawler/parseadores/__pycache__/
+app/tests/__pycache__/
+app/tests/__pycache__/

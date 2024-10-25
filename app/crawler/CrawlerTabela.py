@@ -7,6 +7,13 @@ import re
 import datetime
 from entidades.Receita import Receita
 
+"""
+Classe responsável por fazer a busca da informação.
+propriedade processador: Define o que fazer com a inforação capturada. Pode ser
+  apenas um "print" em tela, ou pode ser que precisa salvar o registro em um
+  banco de dados.
+método buscarConteudo: faz o processamento do conteúdo, em função do processador dado.
+"""
 class CrawlerTabela:
     def __init__(self):
         self.processador = None

@@ -1,3 +1,6 @@
+"""
+Faz buscas personalizadas, se configurando como casos de testes para a aplicação.
+"""
 import sys
 sys.path.append('./buscas_individuais')
 from crawler_cidades_amapa_metodo3 import buscar_cidades_amapa3
