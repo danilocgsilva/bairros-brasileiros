@@ -20,7 +20,7 @@ class XNext(IParseador):
             dado_local = pre_parte + dado_local.next
             
         mensage_invalidade = self._verifica_validacao(dado_local)
-        if mensage_invalidade is not "":
+        if mensage_invalidade != "":
             raise Exception(mensage_invalidade)
 
         return Local(dado_local, "cidade")

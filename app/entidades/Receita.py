@@ -1,18 +1,21 @@
+from crawler.parseadores.IParseador import IParseador
+from crawler.processadores.ProcessadorInterface import ProcessadorInterface
+
 class Receita:
     def __init__(
         self, 
         id: int, 
         nome: str, 
-        seletor_tabela: str, 
-        seletor_coluna: str, 
+        seletor_tabela: str,
+        parseador: IParseador,
+        processador: ProcessadorInterface,
         endereco: str,
-        tipo_localidade: str,
-        nome_localidade_pai: str
+        tipo_localidade: str
     ):
         self.id = id
         self.nome = nome
         self.seletor_tabela = seletor_tabela
-        self.seletor_coluna = seletor_coluna
+        self.parseador = parseador
+        self.processador = processador
         self.endereco = endereco
         self.tipo_localidade = tipo_localidade
-        self.nome_localidade_pai = nome_localidade_pai

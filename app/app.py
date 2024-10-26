@@ -86,8 +86,9 @@ def rodar_receita():
     
     crawler = CrawlerTabela()
     crawler.endereco = receita.endereco
+    crawler.processador = receita.processador()
+    crawler.parseador = receita.parseador
     crawler.seletor_tabela = receita.seletor_tabela
-    crawler.seletor_coluna = receita.seletor_coluna
     crawler.processador = ProcessadorCaptura()
     crawler.buscarConteudoReceita(receita)
 
@@ -96,5 +97,5 @@ def rodar_receita():
 @app.route("/receitas",  methods=['GET'])
 def listar_receitas():
     receitas = Receitas().todas()
-    receitas_nomes = list(map(lambda x: x.nome, receitas))
+    receitas_nomes = list(map(lambda x: { 'id': x.id, 'nome': x.nome}, receitas))
     return minha_resposta(receitas_nomes)

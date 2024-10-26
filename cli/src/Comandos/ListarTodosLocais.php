@@ -20,7 +20,7 @@ class ListarTodosLocais extends Command
         $resposta = $guzzleClient->get("http://bairros_brasileiros_python:5000/receitas");
         $todasReceitas = json_decode($resposta->getBody()->getContents());
         foreach ($todasReceitas as $receita) {
-            $output->writeln($receita);
+            $output->writeln('id: ' . $receita->id . ', nome: ' . $receita->nome);
         }
 
         return Command::SUCCESS;
