@@ -36,7 +36,7 @@ final class Version20241023083133 extends AbstractMigration
         $this->addSql("INSERT INTO siglas_estados (`estado_id`, `sigla`) VALUES (15, 'GO');");
         $this->addSql("INSERT INTO siglas_estados (`estado_id`, `sigla`) VALUES (16, 'MA');");
         $this->addSql("INSERT INTO siglas_estados (`estado_id`, `sigla`) VALUES (17, 'PA');");
-        $this->addSql("INSERT INTO siglas_estados (`estado_id`, `sigla`) VALUES (18, 'PB');");
+        $this->addSql("INSERT INTO siglas_estados (`estado_id`, `sigla`) VALUES (18, 'PR');");
         $this->addSql("INSERT INTO siglas_estados (`estado_id`, `sigla`) VALUES (19, 'PE');");
         $this->addSql("INSERT INTO siglas_estados (`estado_id`, `sigla`) VALUES (20, 'PI');");
         $this->addSql("INSERT INTO siglas_estados (`estado_id`, `sigla`) VALUES (21, 'RJ');");

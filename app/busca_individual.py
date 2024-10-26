@@ -8,7 +8,6 @@ from crawler_todas_cidades_brasileiras import buscar_todas_cidades_brasileiras
 from crawler_busca_bairros_macapa import busca_bairros_macapa
 from crawler_salva_bairros_macapa import salva_bairros_macapa
 from crawler_print_cidades_brasileiras import buscar_todas_cidades_brasileiras2
-from crawler_salva_cidades_brasileiras import salva_todas_cidades_brasileiras
 
 sargv = sys.argv
 
@@ -40,10 +39,6 @@ if tipo_busca == "bairros_macapa":
     
 if tipo_busca == "print_todas_cidades":
     buscar_todas_cidades_brasileiras2()
-    exit()
-
-if tipo_busca == "salva_todas_cidades_brasileiras":
-    salva_todas_cidades_brasileiras()
     exit()
     
 print("É preciso indicar como primeiro argumento o tipo de busca individual:")
