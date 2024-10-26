@@ -1,6 +1,0 @@
-<migrations>
-    <environment name="alternative">
-        <db-configuration>env_test/db-config.php</db-configuration>
-        <migrations-directory>migrations</migrations-directory>
-    </environment>
-</migrations>

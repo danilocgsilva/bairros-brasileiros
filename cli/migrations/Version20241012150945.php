@@ -20,10 +20,10 @@ final class Version20241012150945 extends AbstractMigration
             `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
             `nome` VARCHAR(255),
             `seletor_tabela` CHAR(192),
-            `seletor_coluna` CHAR(192),
+            `parseador` CHAR(192),
+            `processador` CHAR(192),
             `endereco` VARCHAR(255),
-            `tipo_localidade` CHAR(32),
-            `localidade_pai` INT UNSIGNED
+            `tipo_localidade` CHAR(32)
         );');
         $this->addSql("ALTER TABLE `receitas` ADD CONSTRAINT `receitas_locais_id` FOREIGN KEY (`localidade_pai`) REFERENCES `locais` (`id`);");
     }
