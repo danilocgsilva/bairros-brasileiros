@@ -48,6 +48,10 @@ class Dados:
         
     def listar_todos_dados(self) -> list:
         return Locais().listar_todos_dados()
+    
+    def buscarTodasReceitas(self):
+        receitas = Receitas()
+        return receitas.todas()
         
     def _cidade_ja_cadastrada(self, nome_cidade: str, estado: Estado) -> bool:
         local_cursor =  self.recursodb.cursor()
@@ -70,5 +74,4 @@ class Dados:
         for cidade_resultado in meus_resultados:
             cidades.append(Cidade(cidade_resultado[0], cidade_resultado[1]))
         return len(cidades) == 1
-        
     

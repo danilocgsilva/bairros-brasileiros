@@ -96,6 +96,6 @@ def rodar_receita():
 
 @app.route("/receitas",  methods=['GET'])
 def listar_receitas():
-    receitas = Receitas().todas()
+    receitas = Dados.buscarTodasReceitas()
     receitas_nomes = list(map(lambda x: { 'id': x.id, 'nome': x.nome}, receitas))
     return minha_resposta(receitas_nomes)
