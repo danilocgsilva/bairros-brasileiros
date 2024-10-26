@@ -28,20 +28,32 @@ final class Version20241026115407 extends AbstractMigration
                 endereco, 
                 tipo_localidade
             ) VALUES (
-                :nome, 
-                :seletor_tabela, 
-                :parseador, 
-                :processador, 
-                :endereco, 
-                :tipo_localidade
+                '%1\$s', 
+                '%2\$s', 
+                '%3\$s', 
+                '%4\$s', 
+                '%5\$s', 
+                '%6\$s'
             );";
+
         $nome = 'Buscar todas cidades brasileiras';
         $seletorTabela = '.mw-content-ltr.mw-parser-output li';
         $parseador = 'XNext(2, 1)';
         $processador = 'ProcessadorCapturaCidadeSigla';
         $endereco = 'https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil';
         $tipoLocalidade = 'cidade';
-        $this->addSql($sqlBase);
+
+        $query = sprintf(
+            $sqlBase,
+            $nome,
+            $seletorTabela,
+            $parseador,
+            $processador,
+            $endereco,
+            $tipoLocalidade,
+        );
+
+        $this->addSql($query);
     }
 
     public function down(Schema $schema): void
