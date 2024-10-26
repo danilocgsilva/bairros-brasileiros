@@ -86,7 +86,7 @@ def rodar_receita():
     
     crawler = CrawlerTabela()
     crawler.endereco = receita.endereco
-    crawler.processador = receita.processador()
+    crawler.processador = receita.processador
     crawler.parseador = receita.parseador
     crawler.seletor_tabela = receita.seletor_tabela
     crawler.processador = ProcessadorCaptura()
