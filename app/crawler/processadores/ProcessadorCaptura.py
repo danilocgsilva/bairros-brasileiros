@@ -6,6 +6,7 @@ class ProcessadorCaptura(ProcessadorInterface):
         self.tipo = None
         self.nome = None
         self.estado = None
+        self.mensagem_erro = ""
         
     def configurar_nome(self, nome: str):
         self.nome = nome
@@ -20,12 +21,16 @@ class ProcessadorCaptura(ProcessadorInterface):
             Dados().adicionar_cidade(nome_local, self.nome)
         elif self.tipo == "bairro":
             if self.estado == None:
-                raise Exception('É preciso determinar o estado para o processador. Propriedade: estado.')
+                raise Exception('É preciso determinar o estado para o processador. Propriedade: estado, processador: ProcessadorCaptura.')
             Dados().adicionar_bairro(nome_local, self.nome, self.estado)
         else:
             raise Exception("O processador não tem tipo definido.")
         
     def esta_pronto(self):
         if self.tipo == None or self.nome == None:
+            self.mensagem_erro = "O processador precisa de um tipo e um nome."
             return False
         return True
+    
+    def busca_mensagem_erro(self) -> str:
+        return self.mensagem_erro

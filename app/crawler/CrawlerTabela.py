@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup
 from src.Repositorios.HistoricoBuscas import HistoricoBuscas
 from src.Repositorios.HistoricoCapturas import HistoricoCapturas
+from crawler.ICrawler import ICrawler
 from crawler.parseadores.Subselect import Subselect
 import requests
-import re
 import datetime
 from entidades.Receita import Receita
+
 
 """
 Classe responsável por fazer a busca da informação.
@@ -14,7 +15,7 @@ propriedade processador: Define o que fazer com a inforação capturada. Pode se
   banco de dados.
 método buscarConteudo: faz o processamento do conteúdo, em função do processador dado.
 """
-class CrawlerTabela:
+class CrawlerTabela(ICrawler):
     def __init__(self):
         self.processador = None
         self.endereco = None
@@ -25,6 +26,11 @@ class CrawlerTabela:
         self.next_next = False
         self.next_num = None
         self.parseador = None
+        
+    def adicionar_processador(self, processador):
+        if self.processador != None:
+            raise Exception('O processador já foi adicionado.')
+        self.processador = processador
 
     def buscarConteudoReceita(self, receita: Receita):
         historicoBuscasIniciado = HistoricoBuscas().inicia(receita.id)
@@ -32,7 +38,10 @@ class CrawlerTabela:
     
     def buscarConteudo(self, historicoBuscasIniciado = None):
         if not self.processador.esta_pronto():
-            raise Exception('O processador não está pronto. Verifique a implementação do método esta_pronto para resolver is requisitos do processador.')
+            raise Exception(
+                'O processador não está pronto. Verifique a implementação do método esta_pronto para resolver is requisitos do processador: mensagem: '\
+                + self.processador.busca_mensagem_erro()
+            )
         
         if not historicoBuscasIniciado:
             historicoBuscasIniciado = HistoricoBuscas().inicia()

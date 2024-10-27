@@ -11,3 +11,8 @@ class ProcessadorInterface(abc.ABC):
     @abc.abstractmethod
     def esta_pronto(self) -> bool:
         pass
+    
+    @abc.abstractmethod
+    def busca_mensagem_erro(self) -> str:
+        pass
+    

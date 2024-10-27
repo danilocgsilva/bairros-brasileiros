@@ -25,6 +25,9 @@ class ProcessadorCapturaCidadeSigla(ProcessadorInterface):
     def esta_pronto(self):
         return True
     
+    def busca_mensagem_erro(self) -> str:
+        return ""
+    
     def _separarCidadeEEstadoNomes(self, nome_cidade_com_sigla_estado):
         separadorSiglaNome = SeparaNomeCidadeSiglaEstado(nome_cidade_com_sigla_estado)
         cidade, sigla = separadorSiglaNome.separa()

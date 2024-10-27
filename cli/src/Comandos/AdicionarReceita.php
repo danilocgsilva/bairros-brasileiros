@@ -57,7 +57,7 @@ class AdicionarReceita extends Command
                     'tipo_localidade' => $tipoLocalidade,
                     'id_localidade_pai' => $nomeLocalidadePai
                 ]
-            ]            
+            ]
         );
 
         $output->writeln($resposta->getBody()->getContents());

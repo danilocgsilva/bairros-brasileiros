@@ -86,10 +86,9 @@ def rodar_receita():
     
     crawler = CrawlerTabela()
     crawler.endereco = receita.endereco
-    crawler.processador = receita.processador
+    crawler.adicionar_processador(receita.processador)
     crawler.parseador = receita.parseador
     crawler.seletor_tabela = receita.seletor_tabela
-    crawler.processador = ProcessadorCaptura()
     crawler.buscarConteudoReceita(receita)
 
     return minha_resposta('Receita rodada. Sucessos: ' + str(crawler.sucessos) + ", erros: " + str(crawler.erros))
@@ -99,3 +98,10 @@ def listar_receitas():
     receitas = Dados.buscarTodasReceitas()
     receitas_nomes = list(map(lambda x: { 'id': x.id, 'nome': x.nome}, receitas))
     return minha_resposta(receitas_nomes)
+
+@app.route("/buscas/historico", methods=['GET'])
+def busca_historico():
+    historico_buscas = []
+    historico_buscas.append({"id": 1, "receita_id": 1})
+    historico_buscas.append({"id": 2, "receita_id": 2})
+    return minha_resposta(historico_buscas)
