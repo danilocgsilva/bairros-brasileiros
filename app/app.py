@@ -3,9 +3,9 @@ from src.Dados import Dados
 from src.Ajuda import Ajuda
 from src.minha_resposta import minha_resposta
 from src.Requests import Requests
-from crawler.CrawlerTabela import CrawlerTabela
 from src.Repositorios.Receitas import Receitas
-from crawler.processadores.ProcessadorCaptura import ProcessadorCaptura
+from crawler.CrawlerTabela import CrawlerTabela
+from src.Repositorios.HistoricoBuscas import HistoricoBuscas
 
 app = Flask(__name__)
 
@@ -101,6 +101,7 @@ def listar_receitas():
 
 @app.route("/buscas/historico", methods=['GET'])
 def busca_historico():
+    HistoricoBuscas().
     historico_buscas = []
     historico_buscas.append({"id": 1, "receita_id": 1})
     historico_buscas.append({"id": 2, "receita_id": 2})
