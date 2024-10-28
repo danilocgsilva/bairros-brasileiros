@@ -8,6 +8,10 @@ class HistoricoBuscas(Conexao):
     def __init__(self):
         super().__init__()
         self.busca_id = None
+        self.buscas_totais = False
+        
+    def pedir_buscas_totais(self):
+        self.buscas_totais = True
         
     def inicia(
         self, 
@@ -26,12 +30,15 @@ class HistoricoBuscas(Conexao):
         return self
     
     def buscar_todos(self) -> list:
-        query = "SELECT id, receita_id FROM historico_buscas;"
-        local_cursor = self.recursodb.cursor()
-        local_cursor.execute(query)
-        meus_resultados = local_cursor.fetchall()
-        lista_buscas = []
-        for resultado_query in meus_resultados:
-            lista_buscas.append(HistoricoBusca(resultado_query[0], resultado_query[1]))
-        return lista_buscas
+        if not self.buscas_totais:
+            query = "SELECT id, receita_id FROM historico_buscas;"
+            local_cursor = self.recursodb.cursor()
+            local_cursor.execute(query)
+            meus_resultados = local_cursor.fetchall()
+            lista_buscas = []
+            for resultado_query in meus_resultados:
+                lista_buscas.append(HistoricoBusca(resultado_query[0], resultado_query[1]))
+            return lista_buscas
+        else:
+            query = "SELECT id, receita_id FROM historico_buscas;"
     

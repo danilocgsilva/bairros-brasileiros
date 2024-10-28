@@ -101,8 +101,8 @@ def listar_receitas():
 
 @app.route("/buscas/historico", methods=['GET'])
 def busca_historico():
-    HistoricoBuscas().
-    historico_buscas = []
-    historico_buscas.append({"id": 1, "receita_id": 1})
-    historico_buscas.append({"id": 2, "receita_id": 2})
-    return minha_resposta(historico_buscas)
+    historico_buscas_raw = HistoricoBuscas().buscar_todos()
+    historico_buscas_output = []
+    for historico_busca in historico_buscas_raw:
+        historico_buscas_output.append({"id": historico_busca.id, "receita_id": historico_busca.receita_id})
+    return minha_resposta(historico_buscas_output)
