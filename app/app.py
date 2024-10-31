@@ -101,8 +101,33 @@ def listar_receitas():
 
 @app.route("/buscas/historico", methods=['GET'])
 def busca_historico():
-    historico_buscas_raw = HistoricoBuscas().buscar_todos()
-    historico_buscas_output = []
+    historicoBuscas = HistoricoBuscas()
+    historicoBuscas.pedir_buscas_totais()
+    historico_buscas_raw = historicoBuscas.buscar_todos()
+    
+    # historico_buscas_output = []
+    # for historico_busca in historico_buscas_raw:
+    #     historico_buscas_output.append(
+    #         {
+    #             "id": historico_busca.id, 
+    #             "receita_id": historico_busca.receita_id
+    #         }
+    #     )
+    texto_saida_linhas = []
+    # for historico_busca in historico_buscas_output:
+    #     id_texto = str(historico_busca["id"])
+    #     receita_id_texto = str(historico_busca["id"])
+    #     texto_saida_linhas.append(
+    #         "id: " + id_texto + \
+    #         ", id da receita: " + receita_id_texto + \
+    #         ", data de início: " + 
+    #     )
+    
+    
     for historico_busca in historico_buscas_raw:
-        historico_buscas_output.append({"id": historico_busca.id, "receita_id": historico_busca.receita_id})
-    return minha_resposta(historico_buscas_output)
+        texto_saida_linhas.append(
+            "id da receita: " + str(historico_busca.id) + \
+            ", id da receita: " + str(historico_busca.receita_id)
+        )
+    
+    return minha_resposta("\n".join(texto_saida_linhas))

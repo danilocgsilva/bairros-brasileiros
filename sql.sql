@@ -159,3 +159,62 @@ LATERAL (
 GROUP BY hc.historico_buscas_id, lateral_data_inicio.max_data_captura, lateral_data_fim.min_data_captura;
 
 
+
+SELECT
+	hc.historico_buscas_id,
+	COUNT(hc.historico_buscas_id),
+    lateral_data_inicio.max_data_captura,
+    lateral_data_fim.min_data_captura,
+    lateral_sucessos.sucessos,
+    lateral_fracassos.lateral_fracassos
+FROM
+	historico_capturas hc
+LEFT JOIN
+	historico_buscas hb ON hc.historico_buscas_id = hb.id
+    ,
+LATERAL (
+	SELECT
+    	MAX(hcdl.data_captura) as max_data_captura
+    FROM
+    	historico_capturas hcdl
+    WHERE
+    	hcdl.historico_buscas_id = hc.historico_buscas_id
+) lateral_data_inicio
+,
+LATERAL (
+	SELECT
+    	MIN(hcdl.data_captura) as min_data_captura
+    FROM
+    	historico_capturas hcdl
+    WHERE
+    	hcdl.historico_buscas_id = hc.historico_buscas_id
+) lateral_data_fim
+,
+LATERAL (
+	SELECT
+    	COUNT(hcdl.sucesso) as sucessos
+    FROM
+    	historico_capturas hcdl
+    WHERE
+    	hcdl.historico_buscas_id = hc.historico_buscas_id
+    AND
+    	hcdl.sucesso = 1
+) lateral_sucessos,
+LATERAL (
+	SELECT
+    	COUNT(hcdl.sucesso) as lateral_fracassos
+    FROM
+    	historico_capturas hcdl
+    WHERE
+    	hcdl.historico_buscas_id = hc.historico_buscas_id
+    AND
+    	hcdl.sucesso = 0
+) lateral_fracassos
+GROUP BY
+	hc.historico_buscas_id, 
+	lateral_data_inicio.max_data_captura, 
+	lateral_data_fim.min_data_captura,
+	lateral_sucessos.sucessos,
+	lateral_fracassos.lateral_fracassos
+;
+
