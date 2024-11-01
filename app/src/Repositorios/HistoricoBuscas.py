@@ -67,8 +67,8 @@ SELECT
 	hc.historico_buscas_id,
     hb.receita_id,
 	COUNT(hc.historico_buscas_id),
-    lateral_data_inicio.max_data_captura,
     lateral_data_fim.min_data_captura,
+    lateral_data_inicio.max_data_captura,
     lateral_sucessos.sucessos,
     lateral_fracassos.lateral_fracassos
 FROM

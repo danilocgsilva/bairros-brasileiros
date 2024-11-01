@@ -18,6 +18,7 @@ class ProcessadorCapturaCidadeSigla(ProcessadorInterface):
     def processar_sucesso(self, nome_local_com_sigla: str):
         nome_cidade, nome_estado = self._separarCidadeEEstadoNomes(nome_local_com_sigla)
         Cidades().adicionar_cidade(nome_cidade, nome_estado)
+        print("Sucesso, cidade " + nome_cidade + " salva.")
 
     def processar_erro(self, mensagem: str):
         print("ERRO! " + mensagem)

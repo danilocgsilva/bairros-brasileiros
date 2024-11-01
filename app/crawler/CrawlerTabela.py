@@ -64,14 +64,11 @@ class CrawlerTabela(ICrawler):
             dado_cidade = None
             try:
                 dado_cidade = self.parseador.buscar_dado_iteracao(cidade)
+                self._processar_sucesso(dado_cidade.nome, historicoCapturas, historicoBuscasIniciado.busca_id)
             except Exception as e:
                 self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
                 continue
             
-            try:
-                self._processar_sucesso(dado_cidade.nome, historicoCapturas, historicoBuscasIniciado.busca_id)
-            except Exception as e:
-                self._registra_erro(historicoCapturas, historicoBuscasIniciado, str(e))
         return "Sucessos: {}, erros: {}.".format(self.sucessos, self.erros)
             
     def _verificar_erros_validacao(self):

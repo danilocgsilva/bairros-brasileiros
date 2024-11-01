@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from src.Dados import Dados
 from src.Ajuda import Ajuda
 from src.minha_resposta import minha_resposta
@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def default():
-    return "Bairros brasileiros"
+    return render_template('base.html')
         
 @app.route("/banco/ajuda")
 def banco_ajuda():
@@ -45,6 +45,10 @@ def adicionar_bairro():
     nome_da_cidade, nome_bairro = Requests().buscar_dados('buscar_nome_cidade_e_bairro')
     Dados().adicionar_bairro(nome_bairro, nome_da_cidade)
     return minha_resposta("Bairro {} adicionado.".format(nome_bairro))
+
+@app.route("/cidades")
+def listar_cidades():
+    return 'lista de cidades'
 
 @app.route("/ver_todas_informacoes")
 def ver_todas_informacoes():
@@ -95,8 +99,12 @@ def rodar_receita():
 
 @app.route("/receitas",  methods=['GET'])
 def listar_receitas():
-    receitas = Dados.buscarTodasReceitas()
-    receitas_nomes = list(map(lambda x: { 'id': x.id, 'nome': x.nome}, receitas))
+    receitas = Dados().buscarTodasReceitas()
+    receitas_nomes = list(map(lambda x: {
+        'id': x.id, 
+        'nome': x.nome,
+        'processador': x.processador
+    }, receitas))
     return minha_resposta(receitas_nomes)
 
 @app.route("/buscas/historico", methods=['GET'])
@@ -105,29 +113,19 @@ def busca_historico():
     historicoBuscas.pedir_buscas_totais()
     historico_buscas_raw = historicoBuscas.buscar_todos()
     
-    # historico_buscas_output = []
-    # for historico_busca in historico_buscas_raw:
-    #     historico_buscas_output.append(
-    #         {
-    #             "id": historico_busca.id, 
-    #             "receita_id": historico_busca.receita_id
-    #         }
-    #     )
     texto_saida_linhas = []
-    # for historico_busca in historico_buscas_output:
-    #     id_texto = str(historico_busca["id"])
-    #     receita_id_texto = str(historico_busca["id"])
-    #     texto_saida_linhas.append(
-    #         "id: " + id_texto + \
-    #         ", id da receita: " + receita_id_texto + \
-    #         ", data de início: " + 
-    #     )
-    
     
     for historico_busca in historico_buscas_raw:
         texto_saida_linhas.append(
             "id da receita: " + str(historico_busca.id) + \
-            ", id da receita: " + str(historico_busca.receita_id)
+            ", id da receita: " + str(historico_busca.receita_id) +\
+            ", data de inicio: " + str(historico_busca.data_inicio) +\
+            ", data final da busca: " + str(historico_busca.data_fim) +\
+            ", buscas bem sucedidas: " + str(historico_busca.sucessos) +\
+            ", buscas falhadas: " + str(historico_busca.fracassos)
         )
     
     return minha_resposta("\n".join(texto_saida_linhas))
+
+if __name__ == '__main__':
+    app.run(debug=True)
